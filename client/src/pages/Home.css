@@ -1,0 +1,164 @@
+.home-page {
+  min-height: 100vh;
+  padding: 20px 0;
+}
+
+.language-selector {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-bottom: 20px;
+  padding: 0 20px;
+}
+
+.lang-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--bg-secondary);
+  color: var(--text-secondary);
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.lang-btn:hover {
+  border-color: var(--neon-cyan);
+  color: var(--neon-cyan);
+}
+
+.lang-btn.active {
+  border-color: var(--neon-cyan);
+  color: var(--neon-cyan);
+  box-shadow: var(--glow-cyan);
+}
+
+.about-section {
+  text-align: center;
+  padding: 40px 0;
+}
+
+.about-section h1 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.description {
+  font-size: 18px;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.how-it-works {
+  padding: 40px 0;
+}
+
+.how-it-works h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.steps-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 32px 0;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.step-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  margin-bottom: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--bg-secondary);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.step-item:hover {
+  border-color: var(--neon-cyan);
+  box-shadow: var(--glow-cyan);
+}
+
+.step-number {
+  font-size: 32px;
+  font-weight: 700;
+  min-width: 50px;
+  text-align: center;
+}
+
+.step-text {
+  font-size: 16px;
+  color: var(--text-primary);
+  flex: 1;
+}
+
+.neon-button.large {
+  padding: 16px 32px;
+  font-size: 18px;
+  display: block;
+  margin: 0 auto;
+  max-width: 300px;
+}
+
+.promo-section {
+  padding: 60px 0;
+  text-align: center;
+}
+
+.promo-banner {
+  background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(191, 0, 255, 0.1));
+  border: 2px solid var(--neon-cyan);
+  border-radius: 20px;
+  padding: 60px 40px;
+  box-shadow: var(--glow-cyan);
+}
+
+.promo-banner h2.large {
+  font-size: 48px;
+  font-weight: 900;
+  margin-bottom: 16px;
+  letter-spacing: 4px;
+}
+
+.promo-text {
+  font-size: 20px;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+  .about-section h1 {
+    font-size: 24px;
+  }
+  
+  .how-it-works h2 {
+    font-size: 24px;
+  }
+  
+  .step-item {
+    padding: 16px;
+  }
+  
+  .step-number {
+    font-size: 24px;
+    min-width: 40px;
+  }
+  
+  .promo-banner h2.large {
+    font-size: 36px;
+  }
+  
+  .promo-banner {
+    padding: 40px 20px;
+  }
+}
+

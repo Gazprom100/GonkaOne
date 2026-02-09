@@ -1,0 +1,152 @@
+.support-page {
+  min-height: 100vh;
+  padding: 20px 0;
+}
+
+.faq-section {
+  margin-bottom: 60px;
+}
+
+.faq-categories {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.faq-category {
+  background: var(--bg-card);
+  border: 1px solid var(--bg-secondary);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.faq-category:hover {
+  border-color: var(--neon-cyan);
+}
+
+.category-header {
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: 20px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  color: var(--text-primary);
+  font-size: 18px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.category-header:hover {
+  color: var(--neon-cyan);
+}
+
+.category-icon {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--neon-cyan);
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(0, 255, 255, 0.1);
+}
+
+.category-content {
+  padding: 0 24px 24px 24px;
+}
+
+.faq-item {
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--bg-secondary);
+}
+
+.faq-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.faq-question {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.faq-answer {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.contact-section {
+  margin-bottom: 60px;
+}
+
+.contact-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+}
+
+.contact-card {
+  text-align: center;
+  padding: 32px;
+}
+
+.contact-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.contact-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+
+.contact-info {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+}
+
+.contact-card .neon-button {
+  width: 100%;
+}
+
+.feedback-section {
+  margin-bottom: 60px;
+}
+
+.feedback-form {
+  padding: 32px;
+}
+
+.feedback-form .form-group {
+  margin-bottom: 24px;
+}
+
+.feedback-form textarea {
+  resize: vertical;
+  min-height: 120px;
+  font-family: inherit;
+}
+
+.feedback-form select {
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .contact-cards {
+    grid-template-columns: 1fr;
+  }
+}
+

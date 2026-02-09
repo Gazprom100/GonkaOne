@@ -1,0 +1,14 @@
+node_modules
+.env
+.env.local
+data
+*.db
+*.log
+.DS_Store
+server.js
+routes
+models
+config
+middleware
+scripts
+

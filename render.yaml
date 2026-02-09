@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: gonkaone
+    env: node
+    buildCommand: npm install && cd client && npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: DB_PATH
+        value: /opt/render/project/src/data/gonkaone.db
+    healthCheckPath: /health
+
