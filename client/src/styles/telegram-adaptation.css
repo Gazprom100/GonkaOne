@@ -7,7 +7,8 @@
   --tg-viewport-height: 100vh;
   --tg-safe-area-inset-top: 0px;
   --tg-safe-area-inset-bottom: 0px;
-  --tg-content-height: calc(var(--tg-viewport-height) - 70px - var(--tg-safe-area-inset-bottom, 0px));
+  --tg-nav-height: 55px;
+  --tg-content-height: calc(var(--tg-viewport-height) - var(--tg-nav-height) - var(--tg-safe-area-inset-bottom, 0px));
 }
 
 /* Compact spacing for Telegram */
@@ -49,7 +50,19 @@
     overflow-y: auto;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
-    padding: var(--space-md) 0;
+    padding: var(--space-sm) 0;
+    box-sizing: border-box;
+  }
+  
+  /* Remove all large margins in Telegram */
+  .home-page > .container,
+  .mining-page > .container,
+  .profile-page > .container,
+  .referrals-page > .container,
+  .support-page > .container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
   }
   
   /* Compact containers */
@@ -68,18 +81,30 @@
   
   /* Compact hero */
   .hero-section {
-    padding: var(--space-lg) 0;
-    min-height: auto;
+    padding: var(--space-sm) 0 var(--space-md) 0 !important;
+    min-height: auto !important;
   }
   
   .hero-title {
-    font-size: clamp(24px, 6vw, 48px) !important;
-    margin-bottom: var(--space-md) !important;
+    font-size: clamp(20px, 5vw, 32px) !important;
+    margin-bottom: var(--space-xs) !important;
+    line-height: 1.1 !important;
   }
   
   .hero-subtitle {
-    font-size: clamp(14px, 2.5vw, 18px) !important;
-    margin-bottom: var(--space-lg) !important;
+    font-size: clamp(12px, 2vw, 14px) !important;
+    margin-bottom: var(--space-sm) !important;
+    line-height: 1.3 !important;
+  }
+  
+  .hero-cta {
+    margin-top: var(--space-sm) !important;
+    gap: var(--space-xs) !important;
+  }
+  
+  .hero-cta .btn {
+    padding: var(--space-xs) var(--space-sm) !important;
+    font-size: var(--text-xs) !important;
   }
   
   /* Compact buttons */
@@ -103,8 +128,24 @@
   
   /* Compact navigation */
   .bottom-navigation {
-    height: calc(60px + var(--tg-safe-area-inset-bottom, 0px));
-    padding-bottom: var(--tg-safe-area-inset-bottom, 0px);
+    height: calc(55px + var(--tg-safe-area-inset-bottom, 0px));
+    max-height: calc(55px + var(--tg-safe-area-inset-bottom, 0px));
+    padding: var(--space-xs) 0;
+    padding-bottom: calc(var(--space-xs) + var(--tg-safe-area-inset-bottom, 0px));
+  }
+  
+  .nav-item {
+    min-width: 50px !important;
+    padding: var(--space-xs) var(--space-sm) !important;
+  }
+  
+  .nav-icon {
+    font-size: 20px !important;
+    margin-bottom: 2px !important;
+  }
+  
+  .nav-label {
+    font-size: 9px !important;
   }
   
   /* Hide language selector on mobile Telegram */
@@ -114,13 +155,20 @@
   
   /* Compact page titles */
   .page-title {
-    font-size: clamp(24px, 5vw, 36px) !important;
-    margin-bottom: var(--space-lg) !important;
+    font-size: clamp(20px, 4vw, 28px) !important;
+    margin-bottom: var(--space-sm) !important;
+    padding: 0 !important;
   }
   
   .section-title {
-    font-size: clamp(18px, 4vw, 24px) !important;
-    margin-bottom: var(--space-md) !important;
+    font-size: clamp(16px, 3vw, 20px) !important;
+    margin-bottom: var(--space-xs) !important;
+    padding-bottom: var(--space-xs) !important;
+  }
+  
+  .section-title::after {
+    height: 2px !important;
+    width: 40px !important;
   }
   
   /* Compact steps */
@@ -141,25 +189,93 @@
   
   /* Compact pools grid */
   .pools-grid {
-    gap: var(--space-md) !important;
+    gap: var(--space-xs) !important;
+    margin-bottom: var(--space-sm) !important;
   }
   
   .pool-card {
-    padding: var(--space-md) var(--space-lg) !important;
+    padding: var(--space-sm) var(--space-md) !important;
+    margin-bottom: var(--space-xs) !important;
+  }
+  
+  .pool-header {
+    margin-bottom: var(--space-xs) !important;
+  }
+  
+  .pool-name {
+    font-size: var(--text-base) !important;
+  }
+  
+  .pool-progress {
+    margin-bottom: var(--space-xs) !important;
+  }
+  
+  .pool-info {
+    margin-bottom: var(--space-xs) !important;
+  }
+  
+  .info-item {
+    padding: var(--space-xs) var(--space-sm) !important;
+    margin-bottom: var(--space-xs) !important;
+    font-size: var(--text-xs) !important;
+  }
+  
+  .investment-section {
+    gap: var(--space-xs) !important;
+  }
+  
+  .quick-amounts {
+    gap: var(--space-xs) !important;
+  }
+  
+  .amount-btn {
+    padding: var(--space-xs) var(--space-sm) !important;
+    font-size: var(--text-xs) !important;
+  }
+  
+  .invest-btn {
+    padding: var(--space-sm) var(--space-md) !important;
+    font-size: var(--text-sm) !important;
+    margin-top: var(--space-xs) !important;
   }
   
   /* Compact stats */
   .stats-cards {
-    gap: var(--space-md) !important;
-    margin-bottom: var(--space-lg) !important;
+    gap: var(--space-xs) !important;
+    margin-bottom: var(--space-sm) !important;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)) !important;
   }
   
   .stat-card {
-    padding: var(--space-md) var(--space-lg) !important;
+    padding: var(--space-xs) var(--space-sm) !important;
+  }
+  
+  .stat-label {
+    font-size: var(--text-xs) !important;
+    margin-bottom: var(--space-xs) !important;
   }
   
   .stat-value {
-    font-size: clamp(20px, 4vw, 28px) !important;
+    font-size: clamp(16px, 3vw, 20px) !important;
+  }
+  
+  .balance-cards {
+    gap: var(--space-xs) !important;
+    margin-bottom: var(--space-sm) !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+  
+  .balance-card {
+    padding: var(--space-xs) var(--space-sm) !important;
+  }
+  
+  .balance-label {
+    font-size: var(--text-xs) !important;
+    margin-bottom: var(--space-xs) !important;
+  }
+  
+  .balance-value {
+    font-size: clamp(14px, 3vw, 18px) !important;
   }
   
   /* Compact forms */
@@ -184,8 +300,99 @@
   .profile-page,
   .referrals-page,
   .support-page {
-    padding-top: var(--space-md) !important;
-    padding-bottom: var(--space-md) !important;
+    padding-top: var(--space-xs) !important;
+    padding-bottom: var(--space-xs) !important;
+  }
+  
+  /* Compact sections */
+  .pools-section,
+  .my-pools-section,
+  .wallets-section,
+  .withdrawal-section {
+    margin-bottom: var(--space-sm) !important;
+  }
+  
+  /* Compact wallet cards */
+  .wallet-card {
+    padding: var(--space-sm) var(--space-md) !important;
+    margin-bottom: var(--space-xs) !important;
+  }
+  
+  .wallet-title {
+    font-size: var(--text-base) !important;
+    margin-bottom: var(--space-xs) !important;
+  }
+  
+  .wallet-hint {
+    font-size: var(--text-xs) !important;
+    padding: var(--space-xs) var(--space-sm) !important;
+    margin-bottom: var(--space-xs) !important;
+  }
+  
+  .wallet-input-group {
+    gap: var(--space-xs) !important;
+  }
+  
+  .wallet-input-group .btn {
+    padding: var(--space-xs) var(--space-sm) !important;
+    font-size: var(--text-xs) !important;
+    min-width: 80px !important;
+  }
+  
+  /* Compact withdrawal form */
+  .withdrawal-form {
+    padding: var(--space-sm) var(--space-md) !important;
+    margin-bottom: var(--space-sm) !important;
+  }
+  
+  .withdrawal-info {
+    font-size: var(--text-xs) !important;
+    padding: var(--space-xs) var(--space-sm) !important;
+    margin-bottom: var(--space-sm) !important;
+  }
+  
+  /* Compact history */
+  .history-item {
+    padding: var(--space-sm) var(--space-md) !important;
+    margin-bottom: var(--space-xs) !important;
+  }
+  
+  .history-amount {
+    font-size: var(--text-base) !important;
+  }
+  
+  .history-details {
+    font-size: var(--text-xs) !important;
+    gap: var(--space-xs) !important;
+  }
+  
+  /* Compact investments */
+  .investments-list {
+    gap: var(--space-xs) !important;
+  }
+  
+  .investment-card {
+    padding: var(--space-sm) var(--space-md) !important;
+  }
+  
+  .investment-pool {
+    font-size: var(--text-base) !important;
+  }
+  
+  .detail-item {
+    font-size: var(--text-xs) !important;
+    padding: var(--space-xs) 0 !important;
+  }
+  
+  /* Compact empty state */
+  .empty-state {
+    padding: var(--space-lg) var(--space-md) !important;
+    font-size: var(--text-sm) !important;
+  }
+  
+  .empty-state-icon {
+    font-size: 40px !important;
+    margin-bottom: var(--space-sm) !important;
   }
   
   /* Compact promo banner */

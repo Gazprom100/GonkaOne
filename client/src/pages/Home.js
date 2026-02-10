@@ -53,20 +53,23 @@ const Home = () => {
 
         {/* Compact content for Telegram */}
         {window.Telegram?.WebApp ? (
-          <>
-            {/* Simplified for Telegram */}
-            <div className="telegram-quick-info card-ultra" style={{ marginBottom: 'var(--space-md)' }}>
-              <p style={{ fontSize: 'var(--text-sm)', margin: 0, textAlign: 'center' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-xs)', height: '100%' }}>
+            <div className="telegram-quick-info card-ultra" style={{ padding: 'var(--space-sm) var(--space-md)', margin: 0 }}>
+              <p style={{ fontSize: 'var(--text-xs)', margin: 0, textAlign: 'center', lineHeight: '1.3' }}>
                 <span className="brand-name">GonkaOne</span> — коллективный пул по добыче токена GNK
               </p>
             </div>
-            <div className="cta-primary" style={{ marginTop: 'var(--space-md)' }}>
-              <Link to="/mining" className="btn btn-primary btn-lg" style={{ width: '100%' }}>
+            <div style={{ display: 'flex', gap: 'var(--space-xs)', flexDirection: 'column' }}>
+              <Link to="/mining" className="btn btn-primary" style={{ width: '100%', padding: 'var(--space-xs) var(--space-sm)', fontSize: 'var(--text-xs)' }}>
                 <span>🚀</span>
                 <span>Начать майнинг</span>
               </Link>
+              <Link to="/referrals" className="btn btn-secondary" style={{ width: '100%', padding: 'var(--space-xs) var(--space-sm)', fontSize: 'var(--text-xs)' }}>
+                <span>💎</span>
+                <span>Рефералы</span>
+              </Link>
             </div>
-          </>
+          </div>
         ) : (
           <>
             {/* About Section - Premium */}
