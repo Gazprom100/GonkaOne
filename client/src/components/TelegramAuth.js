@@ -31,9 +31,22 @@ const TelegramAuth = () => {
       const tg = window.Telegram.WebApp;
       tg.ready();
       tg.expand();
+      
+      // Enable closing confirmation
+      tg.enableClosingConfirmation();
+      
+      // Set theme colors
+      tg.setHeaderColor('#000000');
+      tg.setBackgroundColor('#000000');
 
       // Get user data from Telegram
       const initData = tg.initDataUnsafe;
+      
+      console.log('Telegram WebApp initialized', {
+        platform: tg.platform,
+        version: tg.version,
+        hasUser: !!initData?.user
+      });
       
       if (initData?.user && !isAuthenticated) {
         const telegramData = {
@@ -51,6 +64,8 @@ const TelegramAuth = () => {
           }
         });
       }
+    } else {
+      console.warn('Telegram WebApp not available - open this app through Telegram bot');
     }
   }, [isAuthenticated, login, referralCode, registerReferral]);
 
