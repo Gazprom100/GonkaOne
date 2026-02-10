@@ -109,7 +109,6 @@ const Mining = () => {
                   <div className="pool-header">
                     <h3 className="pool-name neon-text">GonkaOne Pool #{pool.poolNumber}</h3>
                     <div className="pool-hardware">
-                      <span className="hardware-icon">🔧</span>
                       <span>{pool.hardware || '8xH100'}</span>
                     </div>
                   </div>
@@ -132,12 +131,10 @@ const Mining = () => {
 
                   <div className="pool-info">
                     <div className="info-item">
-                      <span className="info-icon">⚙️</span>
                       <span>Аренда сервера на 30 дней</span>
                     </div>
                     <div className="info-item">
-                      <span className="info-icon">📅</span>
-                      <span>Дата начала майнинга: {pool.startDate || '09.02.2026'}</span>
+                      <span>Дата начала: {pool.startDate || '09.02.2026'}</span>
                     </div>
                   </div>
 
@@ -178,7 +175,7 @@ const Mining = () => {
                       className="neon-button primary invest-btn"
                       onClick={() => handleInvest(pool)}
                     >
-                      🛒 Купить
+                      Инвестировать
                     </button>
                   </div>
                 </div>
@@ -192,18 +189,17 @@ const Mining = () => {
           <section className="my-pools-section">
             <h2 className="section-title neon-text">Мои пулы</h2>
             <div className="stats-cards">
-              <div className="stat-card neon-card glow-cyan">
+              <div className="stat-card">
                 <div className="stat-label">Всего инвестировано</div>
-                <div className="stat-value neon-text">{totalInvested.toFixed(2)} USDT</div>
+                <div className="stat-value">{totalInvested.toFixed(2)} USDT</div>
               </div>
-              <div className="stat-card neon-card glow-purple">
+              <div className="stat-card">
                 <div className="stat-label">Участие в пулах</div>
-                <div className="stat-value neon-text-purple">{myInvestments.length}</div>
+                <div className="stat-value">{myInvestments.length}</div>
               </div>
             </div>
             {myInvestments.length === 0 ? (
               <div className="empty-state">
-                <div className="empty-state-icon">📊</div>
                 <p>У вас пока нет активных инвестиций</p>
                 <p className="text-muted">Начните инвестировать в пулы выше</p>
               </div>
@@ -220,7 +216,7 @@ const Mining = () => {
                     <div className="investment-details">
                       <div className="detail-item">
                         <span className="detail-label">Сумма:</span>
-                        <span className="detail-value neon-text">{investment.amount} USDT</span>
+                        <span className="detail-value">{investment.amount} USDT</span>
                       </div>
                       <div className="detail-item">
                         <span className="detail-label">Дата:</span>
@@ -229,7 +225,7 @@ const Mining = () => {
                       {investment.expectedReward && (
                         <div className="detail-item">
                           <span className="detail-label">Ожидаемая награда:</span>
-                          <span className="detail-value neon-text-green">{investment.expectedReward} GNK</span>
+                          <span className="detail-value">{investment.expectedReward} GNK</span>
                         </div>
                       )}
                     </div>
@@ -246,7 +242,7 @@ const Mining = () => {
             <div className="modal-content card-ultra" onClick={(e) => e.stopPropagation()}>
               <h3 className="modal-title">Инвестировать в пул #{selectedPool?.poolNumber}</h3>
               <div className="modal-body">
-                <p>Сумма инвестиции: <span className="neon-text">{investmentAmount} USDT</span></p>
+                <p>Сумма инвестиции: <strong>{investmentAmount} USDT</strong></p>
                 <div className="modal-actions">
                   <button
                     className="neon-button"

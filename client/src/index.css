@@ -2,6 +2,7 @@
 @import './styles/design-system.css';
 @import './styles/components.css';
 @import './styles/telegram-adaptation.css';
+@import './styles/minimalist-design.css';
 
 /* Additional Global Styles */
 * {

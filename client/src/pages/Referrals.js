@@ -58,8 +58,7 @@ const Referrals = () => {
       <div className="referrals-page">
         <div className="container">
           <div className="auth-required">
-            <div className="auth-required-icon">🔐</div>
-            <p className="neon-text">Пожалуйста, войдите через Telegram</p>
+            <p>Пожалуйста, войдите через Telegram</p>
           </div>
         </div>
       </div>
@@ -92,12 +91,12 @@ const Referrals = () => {
 
         {/* Program Description */}
         <section className="program-description">
-          <h2 className="section-title neon-text">Приглашайте друзей и получайте награды:</h2>
+          <h2 className="section-title">Приглашайте друзей и получайте награды</h2>
           <div className="levels-grid">
-            {levels.map(({ level, percent, color }) => (
+            {levels.map(({ level, percent }) => (
               <div key={level} className="level-card stat-card">
-                <div className="level-number neon-text">Уровень {level}</div>
-                <div className="level-percent neon-text">{percent}% от оплаты</div>
+                <div className="level-number">Уровень {level}</div>
+                <div className="level-percent">{percent}% от оплаты</div>
               </div>
             ))}
           </div>
@@ -120,43 +119,43 @@ const Referrals = () => {
 
           {/* Main Stats */}
           <div className="main-stats">
-            <div className="stat-card neon-card glow-cyan">
+            <div className="stat-card">
               <div className="stat-label">Баланс</div>
-              <div className="stat-value neon-text">{stats.stats.totalEarnings.toFixed(2)} USDT</div>
+              <div className="stat-value">{stats.stats.totalEarnings.toFixed(2)} USDT</div>
             </div>
-            <div className="stat-card neon-card glow-orange">
+            <div className="stat-card">
               <div className="stat-label">На выводе</div>
-              <div className="stat-value neon-text-pink">{stats.stats.pendingWithdrawals.toFixed(2)} USDT</div>
+              <div className="stat-value">{stats.stats.pendingWithdrawals.toFixed(2)} USDT</div>
             </div>
-            <div className="stat-card neon-card glow-green">
+            <div className="stat-card">
               <div className="stat-label">Выведено</div>
-              <div className="stat-value neon-text-green">
+              <div className="stat-value">
                 {stats.stats.totalWithdrawn?.toFixed(2) || '0.00'} USDT
               </div>
             </div>
           </div>
 
           {/* Referral Count */}
-          <div className="referral-count-card neon-card">
+          <div className="referral-count-card">
             <div className="count-label">Всего рефералов</div>
-            <div className="count-value neon-text">{stats.stats.totalReferrals}</div>
+            <div className="count-value">{stats.stats.totalReferrals}</div>
           </div>
 
           {/* Total Income */}
-          <div className="total-income-card neon-card glow-purple">
+          <div className="total-income-card">
             <div className="income-label">Суммарный доход</div>
-            <div className="income-value neon-text-purple">{stats.stats.totalEarnings.toFixed(2)} USDT</div>
+            <div className="income-value">{stats.stats.totalEarnings.toFixed(2)} USDT</div>
           </div>
 
           {/* Income by Level */}
           <div className="levels-income">
-            {levels.map(({ level, percent, color }) => {
+            {levels.map(({ level, percent }) => {
               const levelStat = stats.stats.levels?.find(l => l.level === level);
               const earnings = levelStat?.earnings || 0;
               const count = levelStat?.count || 0;
 
               return (
-                <div key={level} className={`level-income-card neon-card glow-${color}`}>
+                <div key={level} className="level-income-card">
                   <div className="level-income-header">
                     <div>
                       <div className="level-income-title">Уровень {level}</div>
@@ -170,7 +169,7 @@ const Referrals = () => {
                     </button>
                   </div>
                   <div className="level-income-amount">
-                    Доход ({percent}%): <span className="neon-text">{earnings.toFixed(2)} USDT</span>
+                    Доход ({percent}%): <span>{earnings.toFixed(2)} USDT</span>
                   </div>
                 </div>
               );
@@ -198,11 +197,11 @@ const Referrals = () => {
                       <div className="detail-stats">
                         <div className="detail-stat">
                           <span>Инвестиции:</span>
-                          <span className="neon-text">{ref.totalInvestments?.toFixed(2) || '0.00'} USDT</span>
+                          <span>{ref.totalInvestments?.toFixed(2) || '0.00'} USDT</span>
                         </div>
                         <div className="detail-stat">
                           <span>Комиссия:</span>
-                          <span className="neon-text-green">{ref.totalEarnings?.toFixed(2) || '0.00'} USDT</span>
+                          <span>{ref.totalEarnings?.toFixed(2) || '0.00'} USDT</span>
                         </div>
                       </div>
                     </div>

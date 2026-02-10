@@ -1,0 +1,378 @@
+/* ============================================
+   MINIMALIST DESIGN SYSTEM - GONKAONE
+   ============================================ */
+
+:root {
+  /* Minimalist Color Palette */
+  --color-primary: #FFFFFF;
+  --color-secondary: #E5E5E5;
+  --color-tertiary: #CCCCCC;
+  --color-muted: #999999;
+  --color-disabled: #666666;
+  
+  /* Background - Deep Black Minimalist */
+  --bg-primary: #000000;
+  --bg-secondary: #0A0A0A;
+  --bg-tertiary: #141414;
+  --bg-card: #1A1A1A;
+  --bg-card-hover: #222222;
+  --bg-glass: rgba(26, 26, 26, 0.95);
+  
+  /* Borders - Subtle */
+  --border-primary: rgba(255, 255, 255, 0.08);
+  --border-secondary: rgba(255, 255, 255, 0.04);
+  --border-accent: rgba(255, 255, 255, 0.12);
+  
+  /* Text Colors */
+  --text-primary: #FFFFFF;
+  --text-secondary: #E5E5E5;
+  --text-tertiary: #CCCCCC;
+  --text-muted: #999999;
+  
+  /* Minimalist Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.7);
+  --shadow-xl: 0 8px 32px rgba(0, 0, 0, 0.8);
+  
+  /* No glow effects - minimalist */
+  --glow-none: none;
+}
+
+/* Override neon colors with minimalist */
+.neon-text,
+.neon-text-cyan,
+.neon-text-purple,
+.neon-text-green,
+.neon-text-pink {
+  color: var(--text-primary) !important;
+  text-shadow: none !important;
+}
+
+/* Minimalist buttons */
+.btn-primary {
+  background: var(--color-primary) !important;
+  color: var(--bg-primary) !important;
+  border: 1px solid var(--color-primary) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.btn-primary:hover {
+  background: var(--color-secondary) !important;
+  box-shadow: var(--shadow-lg) !important;
+  transform: translateY(-1px) !important;
+}
+
+.btn-primary::after {
+  display: none !important;
+}
+
+.btn-secondary {
+  background: transparent !important;
+  color: var(--color-primary) !important;
+  border: 1px solid var(--border-accent) !important;
+  box-shadow: none !important;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: var(--color-primary) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+/* Minimalist cards */
+.card,
+.neon-card,
+.card-ultra {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-primary) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.card:hover,
+.neon-card:hover,
+.card-ultra:hover {
+  border-color: var(--border-accent) !important;
+  box-shadow: var(--shadow-lg) !important;
+  transform: translateY(-2px) !important;
+}
+
+.card-ultra::before,
+.card-ultra::after {
+  display: none !important;
+}
+
+/* Minimalist progress bars */
+.progress-bar {
+  background: var(--color-primary) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.progress-bar::after {
+  display: none !important;
+}
+
+/* Minimalist status badges - monochrome */
+.status-active,
+.status-completed,
+.status-pending {
+  background: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-primary) !important;
+  box-shadow: none !important;
+}
+
+.status-pending {
+  border-color: var(--border-accent) !important;
+}
+
+.status-completed {
+  border-color: var(--border-primary) !important;
+  opacity: 0.7;
+}
+
+.status-rejected {
+  background: var(--bg-tertiary) !important;
+  color: var(--text-muted) !important;
+  border-color: var(--border-secondary) !important;
+}
+
+/* Remove colorful glows */
+.glow-cyan,
+.glow-purple,
+.glow-green,
+.glow-pink,
+.glow-orange,
+.glow-multi {
+  box-shadow: var(--shadow-md) !important;
+}
+
+/* Minimalist stat cards */
+.stat-card {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-primary) !important;
+}
+
+.stat-card::before {
+  background: var(--color-primary) !important;
+  opacity: 0.1 !important;
+}
+
+.stat-value {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: var(--text-primary) !important;
+  background-clip: unset !important;
+  color: var(--text-primary) !important;
+}
+
+/* Minimalist history items */
+.history-item {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-primary) !important;
+}
+
+.history-item:hover {
+  border-color: var(--border-accent) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.history-amount {
+  color: var(--text-primary) !important;
+}
+
+/* Minimalist investment cards */
+.investment-card {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-primary) !important;
+}
+
+.investment-status {
+  background: var(--bg-secondary) !important;
+  color: var(--text-secondary) !important;
+  border: 1px solid var(--border-primary) !important;
+}
+
+/* Remove gradient text - use solid */
+.gradient-text {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: var(--text-primary) !important;
+  background-clip: unset !important;
+  color: var(--text-primary) !important;
+}
+
+/* Minimalist page titles */
+.page-title {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: var(--text-primary) !important;
+  background-clip: unset !important;
+  color: var(--text-primary) !important;
+  text-shadow: none !important;
+}
+
+/* Minimalist section titles */
+.section-title {
+  color: var(--text-primary) !important;
+}
+
+.section-title::after {
+  background: var(--color-primary) !important;
+  box-shadow: none !important;
+}
+
+/* Remove animated backgrounds */
+.hero-bg-elements,
+.bg-orb {
+  display: none !important;
+}
+
+/* Minimalist inputs */
+.input,
+.neon-input {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-primary) !important;
+  color: var(--text-primary) !important;
+}
+
+.input:focus,
+.neon-input:focus {
+  border-color: var(--border-accent) !important;
+  box-shadow: var(--shadow-sm) !important;
+  background: var(--bg-card-hover) !important;
+}
+
+/* Minimalist navigation */
+.bottom-navigation {
+  background: var(--bg-glass) !important;
+  border-top: 1px solid var(--border-primary) !important;
+}
+
+.bottom-navigation::before {
+  background: var(--color-primary) !important;
+  opacity: 0.1 !important;
+  box-shadow: none !important;
+}
+
+.nav-item.active::after {
+  background: var(--color-primary) !important;
+  box-shadow: none !important;
+}
+
+.nav-item.active .nav-icon {
+  filter: none !important;
+}
+
+/* Remove feature icons emojis */
+.feature-icon {
+  display: none !important;
+}
+
+.feature-item {
+  padding: var(--space-sm) !important;
+}
+
+/* Minimalist level cards */
+.level-card {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-primary) !important;
+}
+
+.level-card::before {
+  background: var(--color-primary) !important;
+  opacity: 0.05 !important;
+}
+
+.level-percent {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: var(--text-primary) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Minimalist modal */
+.modal-content {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-accent) !important;
+  box-shadow: var(--shadow-xl) !important;
+}
+
+.modal-content::before {
+  background: var(--color-primary) !important;
+  opacity: 0.1 !important;
+  box-shadow: none !important;
+}
+
+.modal-title {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: var(--text-primary) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Remove empty state icons */
+.empty-state-icon,
+.auth-required-icon {
+  display: none !important;
+}
+
+/* Minimalist promo banner */
+.promo-banner {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-primary) !important;
+}
+
+.promo-title {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: var(--text-primary) !important;
+  color: var(--text-primary) !important;
+  text-shadow: none !important;
+}
+
+/* Remove hardware icons */
+.hardware-icon,
+.info-icon {
+  display: none !important;
+}
+
+.info-item {
+  gap: var(--space-sm) !important;
+}
+
+/* Minimalist step numbers */
+.step-number {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: var(--text-primary) !important;
+  color: var(--text-primary) !important;
+  text-shadow: none !important;
+}
+
+.step-number::before,
+.step-number::after {
+  display: none !important;
+}
+
+/* Remove shimmer animations */
+.animate-shimmer {
+  animation: none !important;
+}
+
+.progress-bar::after {
+  display: none !important;
+}
+
+/* Minimalist scrollbar */
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary) !important;
+  opacity: 0.3;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary) !important;
+  opacity: 0.5;
+  box-shadow: none !important;
+}
+

@@ -104,23 +104,6 @@
   animation: glow-pulse 2s ease-in-out infinite;
 }
 
-.nav-item.active .nav-icon {
-  transform: scale(1.15);
-  filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.6));
-}
-
-.nav-icon {
-  font-size: 28px;
-  margin-bottom: var(--space-xs);
-  transition: all var(--transition-base);
-  position: relative;
-  z-index: 1;
-  display: inline-block;
-}
-
-.nav-item:hover .nav-icon {
-  transform: scale(1.1) translateY(-2px);
-}
 
 .nav-label {
   font-size: var(--text-xs);
@@ -134,7 +117,6 @@
 
 .nav-item.active .nav-label {
   font-weight: 700;
-  text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
 }
 
 /* Ripple Effect on Click */

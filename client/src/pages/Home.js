@@ -32,13 +32,11 @@ const Home = () => {
               Премиум платформа для коллективного майнинга токенов GNK
             </p>
             <div className="hero-cta">
-              <Link to="/mining" className="btn btn-primary btn-lg animate-float-slow">
-                <span>🚀</span>
-                <span>Начать майнинг</span>
+              <Link to="/mining" className="btn btn-primary btn-lg">
+                Начать майнинг
               </Link>
               <Link to="/referrals" className="btn btn-secondary btn-lg">
-                <span>💎</span>
-                <span>Реферальная программа</span>
+                Реферальная программа
               </Link>
             </div>
           </div>
@@ -61,12 +59,10 @@ const Home = () => {
             </div>
             <div style={{ display: 'flex', gap: 'var(--space-xs)', flexDirection: 'column' }}>
               <Link to="/mining" className="btn btn-primary" style={{ width: '100%', padding: 'var(--space-xs) var(--space-sm)', fontSize: 'var(--text-xs)' }}>
-                <span>🚀</span>
-                <span>Начать майнинг</span>
+                Начать майнинг
               </Link>
               <Link to="/referrals" className="btn btn-secondary" style={{ width: '100%', padding: 'var(--space-xs) var(--space-sm)', fontSize: 'var(--text-xs)' }}>
-                <span>💎</span>
-                <span>Рефералы</span>
+                Рефералы
               </Link>
             </div>
           </div>
@@ -81,8 +77,7 @@ const Home = () => {
                   Присоединяйтесь к сообществу и получайте пассивный доход от майнинга.
                 </p>
                 <button className="btn btn-ghost btn-lg">
-                  <span>📖</span>
-                  <span>Подробнее</span>
+                  Подробнее
                 </button>
               </div>
             </section>
@@ -118,8 +113,7 @@ const Home = () => {
               </ol>
               <div className="cta-primary">
                 <Link to="/mining" className="btn btn-primary btn-xl">
-                  <span>⚡</span>
-                  <span>Перейти в Майнинг</span>
+                  Перейти в Майнинг
                 </Link>
               </div>
             </section>
@@ -134,15 +128,12 @@ const Home = () => {
                   </p>
                   <div className="promo-features">
                     <div className="feature-item">
-                      <span className="feature-icon">🔒</span>
                       <span className="feature-text">Безопасно</span>
                     </div>
                     <div className="feature-item">
-                      <span className="feature-icon">⚡</span>
                       <span className="feature-text">Быстро</span>
                     </div>
                     <div className="feature-item">
-                      <span className="feature-icon">💎</span>
                       <span className="feature-text">Надежно</span>
                     </div>
                   </div>

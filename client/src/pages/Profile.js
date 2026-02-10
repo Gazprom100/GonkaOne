@@ -103,8 +103,7 @@ const Profile = () => {
       <div className="profile-page">
         <div className="container">
           <div className="auth-required">
-            <div className="auth-required-icon">🔐</div>
-            <p className="neon-text">Пожалуйста, войдите через Telegram</p>
+            <p>Пожалуйста, войдите через Telegram</p>
             <p className="text-muted">Войдите через Telegram бота для доступа к профилю</p>
           </div>
         </div>
@@ -180,15 +179,15 @@ const Profile = () => {
           <div className="balance-cards">
             <div className="balance-card stat-card">
               <div className="balance-label">Доступно</div>
-              <div className="balance-value neon-text">{balance.available.toFixed(2)} USDT</div>
+              <div className="balance-value">{balance.available.toFixed(2)} USDT</div>
             </div>
             <div className="balance-card stat-card">
               <div className="balance-label">На выводе</div>
-              <div className="balance-value neon-text-pink">{balance.pending.toFixed(2)} USDT</div>
+              <div className="balance-value">{balance.pending.toFixed(2)} USDT</div>
             </div>
             <div className="balance-card stat-card">
               <div className="balance-label">Выведено</div>
-              <div className="balance-value neon-text-green">{balance.withdrawn.toFixed(2)} USDT</div>
+              <div className="balance-value">{balance.withdrawn.toFixed(2)} USDT</div>
             </div>
           </div>
 
@@ -215,7 +214,7 @@ const Profile = () => {
               />
             </div>
             <p className="withdrawal-info">
-              Минимальный вывод: <span className="neon-text">50 USDT</span>. 
+              Минимальный вывод: <strong>50 USDT</strong>. 
               Запрос будет обработан в течение 48 часов.
             </p>
             <button
@@ -235,7 +234,7 @@ const Profile = () => {
                 {withdrawals.map((withdrawal) => (
                   <div key={withdrawal.id} className="history-item card">
                     <div className="history-header">
-                      <span className="history-amount neon-text">{withdrawal.amount} USDT</span>
+                      <span className="history-amount">{withdrawal.amount} USDT</span>
                       <span className={`history-status status-${withdrawal.status}`}>
                         {withdrawal.status === 'pending' ? 'В обработке' : 
                          withdrawal.status === 'completed' ? 'Выполнено' : 'Отклонено'}
@@ -247,7 +246,7 @@ const Profile = () => {
                       </div>
                       {withdrawal.txHash && (
                         <div className="history-tx">
-                          TX: <span className="neon-text">{withdrawal.txHash.slice(0, 20)}...</span>
+                          TX: <span>{withdrawal.txHash.slice(0, 20)}...</span>
                         </div>
                       )}
                     </div>
