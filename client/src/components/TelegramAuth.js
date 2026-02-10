@@ -1,12 +1,29 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 const TelegramAuth = () => {
   const { login, isAuthenticated } = useAuth();
-  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const referralCode = searchParams.get('start');
+
+  const registerReferral = useCallback(async (code, userId) => {
+    try {
+      const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000/api';
+      await fetch(`${API_URL}/referrals/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          userId,
+          referralCode: code
+        })
+      });
+    } catch (error) {
+      console.error('Error registering referral:', error);
+    }
+  }, []);
 
   useEffect(() => {
     // Initialize Telegram WebApp
@@ -35,25 +52,8 @@ const TelegramAuth = () => {
         });
       }
     }
-  }, []);
+  }, [isAuthenticated, login, referralCode, registerReferral]);
 
-  const registerReferral = async (code, userId) => {
-    try {
-      const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000/api';
-      await fetch(`${API_URL}/referrals/register`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          userId,
-          referralCode: code
-        })
-      });
-    } catch (error) {
-      console.error('Error registering referral:', error);
-    }
-  };
 
   if (isAuthenticated) {
     return null;

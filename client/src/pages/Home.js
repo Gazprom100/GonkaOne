@@ -1,10 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
 import './Home.css';
 
 const Home = () => {
-  const { isAuthenticated } = useAuth();
 
   // Telegram WebApp initialization is handled in TelegramAuth component
 

@@ -1,149 +1,159 @@
-const sqlite3 = require('sqlite3').verbose();
-const path = require('path');
-const fs = require('fs');
+const { Pool } = require('pg');
 
-// Create data directory if it doesn't exist
-const dbDir = path.dirname(process.env.DB_PATH || './data/gonkaone.db');
-if (!fs.existsSync(dbDir)) {
-  fs.mkdirSync(dbDir, { recursive: true });
-}
-
-const dbPath = process.env.DB_PATH || './data/gonkaone.db';
-const db = new sqlite3.Database(dbPath);
-
-// Initialize database tables
-db.serialize(() => {
-  // Users table
-  db.run(`
-    CREATE TABLE IF NOT EXISTS users (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      telegramId INTEGER UNIQUE,
-      username TEXT,
-      firstName TEXT,
-      lastName TEXT,
-      email TEXT,
-      referralCode TEXT UNIQUE NOT NULL,
-      referredBy INTEGER,
-      createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-      updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-      FOREIGN KEY (referredBy) REFERENCES users(id)
-    )
-  `);
-
-  // Wallets table
-  db.run(`
-    CREATE TABLE IF NOT EXISTS wallets (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      userId INTEGER NOT NULL,
-      gonkaAddress TEXT,
-      bep20Address TEXT,
-      createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-      updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-      FOREIGN KEY (userId) REFERENCES users(id)
-    )
-  `);
-
-  // Pools table
-  db.run(`
-    CREATE TABLE IF NOT EXISTS pools (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      poolNumber INTEGER UNIQUE NOT NULL,
-      name TEXT NOT NULL,
-      hardware TEXT,
-      targetAmount REAL NOT NULL,
-      currentAmount REAL DEFAULT 0,
-      status TEXT DEFAULT 'collecting',
-      startDate DATE,
-      endDate DATE,
-      createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-      updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP
-    )
-  `);
-
-  // Investments table
-  db.run(`
-    CREATE TABLE IF NOT EXISTS investments (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      userId INTEGER NOT NULL,
-      poolId INTEGER NOT NULL,
-      amount REAL NOT NULL,
-      status TEXT DEFAULT 'active',
-      expectedReward REAL,
-      createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-      FOREIGN KEY (userId) REFERENCES users(id),
-      FOREIGN KEY (poolId) REFERENCES pools(id)
-    )
-  `);
-
-  // Referrals table (multi-level)
-  db.run(`
-    CREATE TABLE IF NOT EXISTS referrals (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      referrerId INTEGER NOT NULL,
-      referredId INTEGER NOT NULL,
-      level INTEGER NOT NULL,
-      totalEarnings REAL DEFAULT 0,
-      createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-      FOREIGN KEY (referrerId) REFERENCES users(id),
-      FOREIGN KEY (referredId) REFERENCES users(id)
-    )
-  `);
-
-  // Referral earnings table
-  db.run(`
-    CREATE TABLE IF NOT EXISTS referral_earnings (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      userId INTEGER NOT NULL,
-      referralId INTEGER NOT NULL,
-      level INTEGER NOT NULL,
-      amount REAL NOT NULL,
-      sourceType TEXT,
-      sourceId INTEGER,
-      status TEXT DEFAULT 'pending',
-      createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-      FOREIGN KEY (userId) REFERENCES users(id),
-      FOREIGN KEY (referralId) REFERENCES referrals(id)
-    )
-  `);
-
-  // Withdrawals table
-  db.run(`
-    CREATE TABLE IF NOT EXISTS withdrawals (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      userId INTEGER NOT NULL,
-      amount REAL NOT NULL,
-      address TEXT NOT NULL,
-      status TEXT DEFAULT 'pending',
-      txHash TEXT,
-      createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-      processedAt DATETIME,
-      FOREIGN KEY (userId) REFERENCES users(id)
-    )
-  `);
-
-  // Transactions table
-  db.run(`
-    CREATE TABLE IF NOT EXISTS transactions (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      userId INTEGER NOT NULL,
-      type TEXT NOT NULL,
-      amount REAL NOT NULL,
-      currency TEXT DEFAULT 'USDT',
-      status TEXT DEFAULT 'pending',
-      txHash TEXT,
-      createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-      FOREIGN KEY (userId) REFERENCES users(id)
-    )
-  `);
-
-  // Create indexes
-  db.run(`CREATE INDEX IF NOT EXISTS idx_users_telegram_id ON users(telegramId)`);
-  db.run(`CREATE INDEX IF NOT EXISTS idx_users_referral_code ON users(referralCode)`);
-  db.run(`CREATE INDEX IF NOT EXISTS idx_investments_user ON investments(userId)`);
-  db.run(`CREATE INDEX IF NOT EXISTS idx_investments_pool ON investments(poolId)`);
-  db.run(`CREATE INDEX IF NOT EXISTS idx_referrals_referrer ON referrals(referrerId)`);
-  db.run(`CREATE INDEX IF NOT EXISTS idx_referrals_referred ON referrals(referredId)`);
+// PostgreSQL connection pool
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL || process.env.POSTGRES_URL,
+  ssl: process.env.DATABASE_URL?.includes('sslmode=require') ? { rejectUnauthorized: false } : false
 });
 
-module.exports = db;
+// Test connection
+pool.on('connect', () => {
+  console.log('✅ Connected to PostgreSQL database');
+});
 
+pool.on('error', (err) => {
+  console.error('❌ PostgreSQL connection error:', err);
+});
+
+// Initialize database tables
+const initDatabase = async () => {
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+
+    // Users table
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS users (
+        id SERIAL PRIMARY KEY,
+        telegramId INTEGER UNIQUE,
+        username TEXT,
+        firstName TEXT,
+        lastName TEXT,
+        email TEXT,
+        referralCode TEXT UNIQUE NOT NULL,
+        referredBy INTEGER REFERENCES users(id),
+        createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+
+    // Wallets table
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS wallets (
+        id SERIAL PRIMARY KEY,
+        userId INTEGER NOT NULL REFERENCES users(id),
+        gonkaAddress TEXT,
+        bep20Address TEXT,
+        createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+
+    // Pools table
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS pools (
+        id SERIAL PRIMARY KEY,
+        poolNumber INTEGER UNIQUE NOT NULL,
+        name TEXT NOT NULL,
+        hardware TEXT,
+        targetAmount DECIMAL(18, 2) NOT NULL,
+        currentAmount DECIMAL(18, 2) DEFAULT 0,
+        status TEXT DEFAULT 'collecting',
+        startDate DATE,
+        endDate DATE,
+        createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+
+    // Investments table
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS investments (
+        id SERIAL PRIMARY KEY,
+        userId INTEGER NOT NULL REFERENCES users(id),
+        poolId INTEGER NOT NULL REFERENCES pools(id),
+        amount DECIMAL(18, 2) NOT NULL,
+        status TEXT DEFAULT 'active',
+        expectedReward DECIMAL(18, 2),
+        createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+
+    // Referrals table (multi-level)
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS referrals (
+        id SERIAL PRIMARY KEY,
+        referrerId INTEGER NOT NULL REFERENCES users(id),
+        referredId INTEGER NOT NULL REFERENCES users(id),
+        level INTEGER NOT NULL,
+        totalEarnings DECIMAL(18, 2) DEFAULT 0,
+        createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+
+    // Referral earnings table
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS referral_earnings (
+        id SERIAL PRIMARY KEY,
+        userId INTEGER NOT NULL REFERENCES users(id),
+        referralId INTEGER NOT NULL REFERENCES referrals(id),
+        level INTEGER NOT NULL,
+        amount DECIMAL(18, 2) NOT NULL,
+        sourceType TEXT,
+        sourceId INTEGER,
+        status TEXT DEFAULT 'pending',
+        createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+
+    // Withdrawals table
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS withdrawals (
+        id SERIAL PRIMARY KEY,
+        userId INTEGER NOT NULL REFERENCES users(id),
+        amount DECIMAL(18, 2) NOT NULL,
+        address TEXT NOT NULL,
+        status TEXT DEFAULT 'pending',
+        txHash TEXT,
+        createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        processedAt TIMESTAMP
+      )
+    `);
+
+    // Transactions table
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS transactions (
+        id SERIAL PRIMARY KEY,
+        userId INTEGER NOT NULL REFERENCES users(id),
+        type TEXT NOT NULL,
+        amount DECIMAL(18, 2) NOT NULL,
+        currency TEXT DEFAULT 'USDT',
+        status TEXT DEFAULT 'pending',
+        txHash TEXT,
+        createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+
+    // Create indexes
+    await client.query(`CREATE INDEX IF NOT EXISTS idx_users_telegram_id ON users(telegramId)`);
+    await client.query(`CREATE INDEX IF NOT EXISTS idx_users_referral_code ON users(referralCode)`);
+    await client.query(`CREATE INDEX IF NOT EXISTS idx_investments_user ON investments(userId)`);
+    await client.query(`CREATE INDEX IF NOT EXISTS idx_investments_pool ON investments(poolId)`);
+    await client.query(`CREATE INDEX IF NOT EXISTS idx_referrals_referrer ON referrals(referrerId)`);
+    await client.query(`CREATE INDEX IF NOT EXISTS idx_referrals_referred ON referrals(referredId)`);
+
+    await client.query('COMMIT');
+    console.log('✅ Database tables initialized');
+  } catch (error) {
+    await client.query('ROLLBACK');
+    console.error('❌ Error initializing database:', error);
+    throw error;
+  } finally {
+    client.release();
+  }
+};
+
+// Initialize on module load
+initDatabase().catch(console.error);
+
+module.exports = pool;

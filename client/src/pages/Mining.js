@@ -15,11 +15,24 @@ const Mining = () => {
   const [investmentAmount, setInvestmentAmount] = useState(50);
   const [showInvestModal, setShowInvestModal] = useState(false);
 
+  const loadMyInvestments = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/pools/my/investments`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setMyInvestments(response.data.investments);
+      setTotalInvested(response.data.totalInvested);
+    } catch (error) {
+      console.error('Error loading investments:', error);
+    }
+  };
+
   useEffect(() => {
     loadPools();
     if (isAuthenticated) {
       loadMyInvestments();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
 
   const loadPools = async () => {

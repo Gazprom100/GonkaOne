@@ -12,14 +12,6 @@ const Referrals = () => {
   const [selectedLevel, setSelectedLevel] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      loadStats();
-    } else {
-      setLoading(false);
-    }
-  }, [isAuthenticated]);
-
   const loadStats = async () => {
     try {
       const response = await axios.get(`${API_URL}/referrals/stats`, {
@@ -32,6 +24,15 @@ const Referrals = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      loadStats();
+    } else {
+      setLoading(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuthenticated]);
 
   const loadLevelDetails = async (level) => {
     try {
