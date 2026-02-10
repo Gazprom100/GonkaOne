@@ -58,6 +58,7 @@ const Referrals = () => {
       <div className="referrals-page">
         <div className="container">
           <div className="auth-required">
+            <div className="auth-required-icon">🔐</div>
             <p className="neon-text">Пожалуйста, войдите через Telegram</p>
           </div>
         </div>
@@ -70,7 +71,8 @@ const Referrals = () => {
       <div className="referrals-page">
         <div className="container">
           <div className="loading-container">
-            <div className="neon-spinner"></div>
+            <div className="spinner-premium"></div>
+            <p className="loading-text">Загрузка статистики...</p>
           </div>
         </div>
       </div>
@@ -93,7 +95,7 @@ const Referrals = () => {
           <h2 className="section-title neon-text">Приглашайте друзей и получайте награды:</h2>
           <div className="levels-grid">
             {levels.map(({ level, percent, color }) => (
-              <div key={level} className={`level-card neon-card glow-${color}`}>
+              <div key={level} className="level-card stat-card">
                 <div className="level-number neon-text">Уровень {level}</div>
                 <div className="level-percent neon-text">{percent}% от оплаты</div>
               </div>

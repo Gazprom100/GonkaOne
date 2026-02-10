@@ -42,13 +42,10 @@
 
 .level-card {
   text-align: center;
-  padding: var(--space-xl);
-  background: var(--bg-card);
-  border: 1px solid var(--border-primary);
-  border-radius: var(--radius-lg);
-  transition: all var(--transition-base);
+  padding: var(--space-2xl);
+  transition: all var(--transition-smooth);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .level-card::before {
@@ -64,9 +61,7 @@
 }
 
 .level-card:hover {
-  border-color: var(--border-accent);
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg), var(--glow-cyan);
+  transform: translateY(-8px) scale(1.05);
 }
 
 .level-card:hover::before {

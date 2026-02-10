@@ -103,7 +103,9 @@ const Profile = () => {
       <div className="profile-page">
         <div className="container">
           <div className="auth-required">
+            <div className="auth-required-icon">🔐</div>
             <p className="neon-text">Пожалуйста, войдите через Telegram</p>
+            <p className="text-muted">Войдите через Telegram бота для доступа к профилю</p>
           </div>
         </div>
       </div>
@@ -115,7 +117,8 @@ const Profile = () => {
       <div className="profile-page">
         <div className="container">
           <div className="loading-container">
-            <div className="neon-spinner"></div>
+            <div className="spinner-premium"></div>
+            <p className="loading-text">Загрузка профиля...</p>
           </div>
         </div>
       </div>
@@ -135,7 +138,7 @@ const Profile = () => {
           </p>
 
           {/* Gonka Wallet */}
-          <div className="wallet-card neon-card">
+          <div className="wallet-card card-ultra">
             <h3 className="wallet-title">Кошелёк для токенов GNK</h3>
             <p className="wallet-hint">Адрес кошелька должен начинаться с символов gonka...</p>
             <div className="wallet-input-group">
@@ -153,7 +156,7 @@ const Profile = () => {
           </div>
 
           {/* BEP-20 Wallet */}
-          <div className="wallet-card neon-card">
+          <div className="wallet-card card-ultra">
             <h3 className="wallet-title">Кошелёк для реферальных выплат (BEP-20)</h3>
             <div className="wallet-input-group">
               <input
@@ -175,17 +178,21 @@ const Profile = () => {
           <h2 className="section-title">Запрос вывода USDT (BEP-20)</h2>
 
           <div className="balance-cards">
-            <div className="balance-card neon-card glow-cyan">
+            <div className="balance-card stat-card">
               <div className="balance-label">Доступно</div>
               <div className="balance-value neon-text">{balance.available.toFixed(2)} USDT</div>
             </div>
-            <div className="balance-card neon-card glow-orange">
+            <div className="balance-card stat-card">
               <div className="balance-label">На выводе</div>
               <div className="balance-value neon-text-pink">{balance.pending.toFixed(2)} USDT</div>
             </div>
+            <div className="balance-card stat-card">
+              <div className="balance-label">Выведено</div>
+              <div className="balance-value neon-text-green">{balance.withdrawn.toFixed(2)} USDT</div>
+            </div>
           </div>
 
-          <div className="withdrawal-form neon-card">
+          <div className="withdrawal-form card-ultra">
             <div className="form-group">
               <label className="form-label">Сумма</label>
               <input
@@ -226,7 +233,7 @@ const Profile = () => {
               <h3 className="history-title">История запросов</h3>
               <div className="history-list">
                 {withdrawals.map((withdrawal) => (
-                  <div key={withdrawal.id} className="history-item neon-card">
+                  <div key={withdrawal.id} className="history-item card">
                     <div className="history-header">
                       <span className="history-amount neon-text">{withdrawal.amount} USDT</span>
                       <span className={`history-status status-${withdrawal.status}`}>

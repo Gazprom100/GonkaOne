@@ -1,0 +1,55 @@
+.skeleton {
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 240, 255, 0.1) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.skeleton-title {
+  height: 24px;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-md);
+  width: 100%;
+}
+
+.skeleton-text {
+  height: 16px;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-sm);
+  width: 100%;
+}
+
+.skeleton-progress {
+  height: 12px;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-full);
+  margin: var(--space-md) 0;
+  width: 100%;
+}
+
+.skeleton-pool {
+  min-height: 300px;
+}
+
+.skeleton-stat {
+  min-height: 120px;
+}
+

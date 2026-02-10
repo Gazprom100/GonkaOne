@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
+import SkeletonLoader from '../components/SkeletonLoader';
 import './Mining.css';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000/api';
@@ -83,8 +84,9 @@ const Mining = () => {
     return (
       <div className="mining-page">
         <div className="container">
-          <div className="loading-container">
-            <div className="neon-spinner"></div>
+          <h1 className="page-title gradient-text">Майнинг</h1>
+          <div className="pools-grid">
+            <SkeletonLoader type="pool" count={3} />
           </div>
         </div>
       </div>
@@ -103,7 +105,7 @@ const Mining = () => {
             {pools.map((pool) => {
               const progress = calculateProgress(pool);
               return (
-                <div key={pool.id} className="pool-card neon-card">
+                <div key={pool.id} className="pool-card card-ultra">
                   <div className="pool-header">
                     <h3 className="pool-name neon-text">GonkaOne Pool #{pool.poolNumber}</h3>
                     <div className="pool-hardware">
@@ -117,9 +119,9 @@ const Mining = () => {
                       <span>{pool.currentAmount.toLocaleString()} USDT</span>
                       <span className="neon-text">/ {pool.targetAmount.toLocaleString()} USDT</span>
                     </div>
-                    <div className="neon-progress">
+                    <div className="progress-container">
                       <div
-                        className="neon-progress-bar"
+                        className="progress-bar"
                         style={{ width: `${progress}%` }}
                       ></div>
                     </div>
@@ -200,7 +202,11 @@ const Mining = () => {
               </div>
             </div>
             {myInvestments.length === 0 ? (
-              <div className="empty-state">Нет пулов</div>
+              <div className="empty-state">
+                <div className="empty-state-icon">📊</div>
+                <p>У вас пока нет активных инвестиций</p>
+                <p className="text-muted">Начните инвестировать в пулы выше</p>
+              </div>
             ) : (
               <div className="investments-list">
                 {myInvestments.map((investment) => (
@@ -213,13 +219,19 @@ const Mining = () => {
                     </div>
                     <div className="investment-details">
                       <div className="detail-item">
-                        <span>Сумма:</span>
-                        <span className="neon-text">{investment.amount} USDT</span>
+                        <span className="detail-label">Сумма:</span>
+                        <span className="detail-value neon-text">{investment.amount} USDT</span>
                       </div>
                       <div className="detail-item">
-                        <span>Дата:</span>
-                        <span>{new Date(investment.createdAt).toLocaleDateString('ru-RU')}</span>
+                        <span className="detail-label">Дата:</span>
+                        <span className="detail-value">{new Date(investment.createdAt).toLocaleDateString('ru-RU')}</span>
                       </div>
+                      {investment.expectedReward && (
+                        <div className="detail-item">
+                          <span className="detail-label">Ожидаемая награда:</span>
+                          <span className="detail-value neon-text-green">{investment.expectedReward} GNK</span>
+                        </div>
+                      )}
                     </div>
                   </div>
                 ))}
@@ -231,7 +243,7 @@ const Mining = () => {
         {/* Investment Modal */}
         {showInvestModal && (
           <div className="modal-overlay" onClick={() => setShowInvestModal(false)}>
-            <div className="modal-content neon-card" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-content card-ultra" onClick={(e) => e.stopPropagation()}>
               <h3 className="modal-title">Инвестировать в пул #{selectedPool?.poolNumber}</h3>
               <div className="modal-body">
                 <p>Сумма инвестиции: <span className="neon-text">{investmentAmount} USDT</span></p>
