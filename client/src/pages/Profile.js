@@ -46,29 +46,6 @@ const Profile = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
 
-  const loadData = async () => {
-    try {
-      const [walletRes, withdrawalsRes] = await Promise.all([
-        axios.get(`${API_URL}/wallets`, {
-          headers: { Authorization: `Bearer ${token}` }
-        }),
-        axios.get(`${API_URL}/withdrawals`, {
-          headers: { Authorization: `Bearer ${token}` }
-        })
-      ]);
-
-      if (walletRes.data.wallet) {
-        setWallet(walletRes.data.wallet);
-      }
-      setWithdrawals(withdrawalsRes.data.withdrawals);
-      setBalance(withdrawalsRes.data.balance);
-    } catch (error) {
-      console.error('Error loading data:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const saveGonkaWallet = async () => {
     try {
       await axios.put(

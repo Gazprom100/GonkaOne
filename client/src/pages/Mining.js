@@ -46,18 +46,6 @@ const Mining = () => {
     }
   };
 
-  const loadMyInvestments = async () => {
-    try {
-      const response = await axios.get(`${API_URL}/pools/my/investments`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      setMyInvestments(response.data.investments);
-      setTotalInvested(response.data.totalInvested);
-    } catch (error) {
-      console.error('Error loading investments:', error);
-    }
-  };
-
   const handleInvest = (pool) => {
     setSelectedPool(pool);
     setInvestmentAmount(50);
