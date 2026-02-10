@@ -127,7 +127,7 @@ const Profile = () => {
   return (
     <div className="profile-page">
       <div className="container">
-        <h1 className="page-title gradient-text">Профиль</h1>
+        <h1 className="page-title">Профиль</h1>
 
         {/* Wallets Section */}
         <section className="wallets-section">

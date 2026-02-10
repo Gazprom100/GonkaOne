@@ -87,7 +87,7 @@ const Referrals = () => {
   return (
     <div className="referrals-page">
       <div className="container">
-        <h1 className="page-title gradient-text">Рефералы</h1>
+        <h1 className="page-title">Рефералы</h1>
 
         {/* Program Description */}
         <section className="program-description">

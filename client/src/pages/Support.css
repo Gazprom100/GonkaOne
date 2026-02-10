@@ -99,33 +99,32 @@
 }
 
 .category-header:hover {
-  color: var(--neon-cyan);
+  color: var(--text-primary);
 }
 
 .category-header.active {
-  color: var(--neon-cyan);
+  color: var(--text-primary);
 }
 
 .category-icon {
   font-size: var(--text-2xl);
   font-weight: 700;
-  color: var(--neon-cyan);
+  color: var(--text-primary);
   width: 40px;
   height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: rgba(0, 240, 255, 0.1);
-  border: 2px solid var(--neon-cyan);
-  box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
   transition: all var(--transition-base);
   flex-shrink: 0;
 }
 
 .category-header:hover .category-icon {
   transform: scale(1.1) rotate(90deg);
-  box-shadow: var(--glow-cyan);
+  border-color: var(--border-accent);
 }
 
 .category-header.active .category-icon {
