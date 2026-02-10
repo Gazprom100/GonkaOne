@@ -2,6 +2,13 @@
   min-height: 100vh;
   background-color: var(--bg-primary);
   padding-bottom: 80px; /* Space for bottom navigation */
+  position: relative;
+  z-index: var(--z-base);
+}
+
+/* Premium page transitions */
+.App > * {
+  animation: fade-in-scale 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
 /* Page transitions */
