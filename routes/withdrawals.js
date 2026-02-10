@@ -1,54 +1,52 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../config/database');
+const pool = require('../config/database');
 const auth = require('../middleware/auth');
 
 // Get user withdrawals
 router.get('/', auth, async (req, res, next) => {
   try {
-    db.all(
-      `SELECT * FROM withdrawals 
-       WHERE userId = ? 
-       ORDER BY createdAt DESC`,
-      [req.userId],
-      (err, withdrawals) => {
-        if (err) return next(err);
+    const client = await pool.connect();
+    try {
+      const withdrawalsResult = await client.query(
+        `SELECT * FROM withdrawals 
+         WHERE userId = $1 
+         ORDER BY createdAt DESC`,
+        [req.userId]
+      );
 
-        // Get balance stats
-        db.get(
-          `SELECT 
-            COALESCE(SUM(CASE WHEN status = 'completed' THEN amount ELSE 0 END), 0) as totalWithdrawn,
-            COALESCE(SUM(CASE WHEN status = 'pending' THEN amount ELSE 0 END), 0) as pendingAmount
-           FROM withdrawals WHERE userId = ?`,
-          [req.userId],
-          (err, stats) => {
-            if (err) return next(err);
+      const statsResult = await client.query(
+        `SELECT 
+          COALESCE(SUM(CASE WHEN status = 'completed' THEN amount ELSE 0 END), 0) as totalWithdrawn,
+          COALESCE(SUM(CASE WHEN status = 'pending' THEN amount ELSE 0 END), 0) as pendingAmount
+         FROM withdrawals WHERE userId = $1`,
+        [req.userId]
+      );
 
-            // Get available balance (from referral earnings)
-            db.get(
-              `SELECT 
-                COALESCE(SUM(CASE WHEN status = 'completed' THEN amount ELSE 0 END), 0) as totalEarnings
-               FROM referral_earnings WHERE userId = ?`,
-              [req.userId],
-              (err, earnings) => {
-                if (err) return next(err);
+      const earningsResult = await client.query(
+        `SELECT 
+          COALESCE(SUM(CASE WHEN status = 'completed' THEN amount ELSE 0 END), 0) as totalEarnings
+         FROM referral_earnings WHERE userId = $1`,
+        [req.userId]
+      );
 
-                const availableBalance = earnings.totalEarnings - stats.totalWithdrawn - stats.pendingAmount;
+      const stats = statsResult.rows[0];
+      const earnings = earningsResult.rows[0];
+      const availableBalance = parseFloat(earnings.totalearnings || 0) - 
+                               parseFloat(stats.totalwithdrawn || 0) - 
+                               parseFloat(stats.pendingamount || 0);
 
-                res.json({
-                  withdrawals,
-                  balance: {
-                    available: availableBalance,
-                    pending: stats.pendingAmount,
-                    withdrawn: stats.totalWithdrawn
-                  }
-                });
-              }
-            );
-          }
-        );
-      }
-    );
+      res.json({
+        withdrawals: withdrawalsResult.rows,
+        balance: {
+          available: availableBalance,
+          pending: parseFloat(stats.pendingamount || 0),
+          withdrawn: parseFloat(stats.totalwithdrawn || 0)
+        }
+      });
+    } finally {
+      client.release();
+    }
   } catch (error) {
     next(error);
   }
@@ -70,61 +68,64 @@ router.post('/', auth, async (req, res, next) => {
       return res.status(400).json({ error: 'Invalid BEP-20 address format' });
     }
 
-    // Check available balance
-    db.get(
-      `SELECT 
-        COALESCE(SUM(CASE WHEN status = 'completed' THEN amount ELSE 0 END), 0) as totalEarnings
-       FROM referral_earnings WHERE userId = ?`,
-      [req.userId],
-      (err, earnings) => {
-        if (err) return next(err);
+    const client = await pool.connect();
+    try {
+      await client.query('BEGIN');
 
-        db.get(
-          `SELECT 
-            COALESCE(SUM(CASE WHEN status = 'completed' THEN amount ELSE 0 END), 0) as totalWithdrawn,
-            COALESCE(SUM(CASE WHEN status = 'pending' THEN amount ELSE 0 END), 0) as pendingAmount
-           FROM withdrawals WHERE userId = ?`,
-          [req.userId],
-          (err, withdrawals) => {
-            if (err) return next(err);
+      const earningsResult = await client.query(
+        `SELECT 
+          COALESCE(SUM(CASE WHEN status = 'completed' THEN amount ELSE 0 END), 0) as totalEarnings
+         FROM referral_earnings WHERE userId = $1`,
+        [req.userId]
+      );
 
-            const availableBalance = earnings.totalEarnings - withdrawals.totalWithdrawn - withdrawals.pendingAmount;
+      const withdrawalsResult = await client.query(
+        `SELECT 
+          COALESCE(SUM(CASE WHEN status = 'completed' THEN amount ELSE 0 END), 0) as totalWithdrawn,
+          COALESCE(SUM(CASE WHEN status = 'pending' THEN amount ELSE 0 END), 0) as pendingAmount
+         FROM withdrawals WHERE userId = $1`,
+        [req.userId]
+      );
 
-            if (amount > availableBalance) {
-              return res.status(400).json({
-                error: 'Insufficient balance',
-                available: availableBalance
-              });
-            }
+      const earnings = parseFloat(earningsResult.rows[0].totalearnings || 0);
+      const withdrawals = withdrawalsResult.rows[0];
+      const availableBalance = earnings - 
+                               parseFloat(withdrawals.totalwithdrawn || 0) - 
+                               parseFloat(withdrawals.pendingamount || 0);
 
-            // Create withdrawal request
-            db.run(
-              `INSERT INTO withdrawals (userId, amount, address, status)
-               VALUES (?, ?, ?, 'pending')`,
-              [req.userId, amount, address],
-              function(err) {
-                if (err) return next(err);
-
-                res.json({
-                  success: true,
-                  withdrawal: {
-                    id: this.lastID,
-                    amount,
-                    address,
-                    status: 'pending',
-                    message: `Request will be processed within ${process.env.WITHDRAWAL_PROCESSING_HOURS || 48} hours`
-                  }
-                });
-              }
-            );
-          }
-        );
+      if (amount > availableBalance) {
+        await client.query('ROLLBACK');
+        return res.status(400).json({
+          error: 'Insufficient balance',
+          available: availableBalance
+        });
       }
-    );
+
+      const result = await client.query(
+        `INSERT INTO withdrawals (userId, amount, address, status)
+         VALUES ($1, $2, $3, 'pending')
+         RETURNING *`,
+        [req.userId, amount, address]
+      );
+
+      await client.query('COMMIT');
+
+      res.json({
+        success: true,
+        withdrawal: {
+          ...result.rows[0],
+          message: `Request will be processed within ${process.env.WITHDRAWAL_PROCESSING_HOURS || 48} hours`
+        }
+      });
+    } catch (error) {
+      await client.query('ROLLBACK');
+      throw error;
+    } finally {
+      client.release();
+    }
   } catch (error) {
     next(error);
   }
 });
 
 module.exports = router;
-

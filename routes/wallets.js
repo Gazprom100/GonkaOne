@@ -1,19 +1,18 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../config/database');
+const pool = require('../config/database');
 const auth = require('../middleware/auth');
 
 // Get user wallets
 router.get('/', auth, async (req, res, next) => {
   try {
-    db.get(
-      'SELECT * FROM wallets WHERE userId = ?',
-      [req.userId],
-      (err, wallet) => {
-        if (err) return next(err);
-        res.json({ wallet: wallet || null });
-      }
-    );
+    const client = await pool.connect();
+    try {
+      const result = await client.query('SELECT * FROM wallets WHERE userId = $1', [req.userId]);
+      res.json({ wallet: result.rows[0] || null });
+    } finally {
+      client.release();
+    }
   } catch (error) {
     next(error);
   }
@@ -28,29 +27,26 @@ router.put('/gonka', auth, async (req, res, next) => {
       return res.status(400).json({ error: 'Invalid Gonka address format' });
     }
 
-    db.get('SELECT * FROM wallets WHERE userId = ?', [req.userId], (err, wallet) => {
-      if (err) return next(err);
+    const client = await pool.connect();
+    try {
+      const existing = await client.query('SELECT * FROM wallets WHERE userId = $1', [req.userId]);
 
-      if (wallet) {
-        db.run(
-          `UPDATE wallets SET gonkaAddress = ?, updatedAt = CURRENT_TIMESTAMP WHERE userId = ?`,
-          [address, req.userId],
-          (err) => {
-            if (err) return next(err);
-            res.json({ success: true, message: 'Gonka wallet updated' });
-          }
+      if (existing.rows.length > 0) {
+        await client.query(
+          'UPDATE wallets SET gonkaAddress = $1, updatedAt = CURRENT_TIMESTAMP WHERE userId = $2',
+          [address, req.userId]
         );
+        res.json({ success: true, message: 'Gonka wallet updated' });
       } else {
-        db.run(
-          `INSERT INTO wallets (userId, gonkaAddress) VALUES (?, ?)`,
-          [req.userId, address],
-          (err) => {
-            if (err) return next(err);
-            res.json({ success: true, message: 'Gonka wallet saved' });
-          }
+        await client.query(
+          'INSERT INTO wallets (userId, gonkaAddress) VALUES ($1, $2)',
+          [req.userId, address]
         );
+        res.json({ success: true, message: 'Gonka wallet saved' });
       }
-    });
+    } finally {
+      client.release();
+    }
   } catch (error) {
     next(error);
   }
@@ -65,33 +61,29 @@ router.put('/bep20', auth, async (req, res, next) => {
       return res.status(400).json({ error: 'Invalid BEP-20 address format' });
     }
 
-    db.get('SELECT * FROM wallets WHERE userId = ?', [req.userId], (err, wallet) => {
-      if (err) return next(err);
+    const client = await pool.connect();
+    try {
+      const existing = await client.query('SELECT * FROM wallets WHERE userId = $1', [req.userId]);
 
-      if (wallet) {
-        db.run(
-          `UPDATE wallets SET bep20Address = ?, updatedAt = CURRENT_TIMESTAMP WHERE userId = ?`,
-          [address, req.userId],
-          (err) => {
-            if (err) return next(err);
-            res.json({ success: true, message: 'BEP-20 wallet updated' });
-          }
+      if (existing.rows.length > 0) {
+        await client.query(
+          'UPDATE wallets SET bep20Address = $1, updatedAt = CURRENT_TIMESTAMP WHERE userId = $2',
+          [address, req.userId]
         );
+        res.json({ success: true, message: 'BEP-20 wallet updated' });
       } else {
-        db.run(
-          `INSERT INTO wallets (userId, bep20Address) VALUES (?, ?)`,
-          [req.userId, address],
-          (err) => {
-            if (err) return next(err);
-            res.json({ success: true, message: 'BEP-20 wallet saved' });
-          }
+        await client.query(
+          'INSERT INTO wallets (userId, bep20Address) VALUES ($1, $2)',
+          [req.userId, address]
         );
+        res.json({ success: true, message: 'BEP-20 wallet saved' });
       }
-    });
+    } finally {
+      client.release();
+    }
   } catch (error) {
     next(error);
   }
 });
 
 module.exports = router;
-

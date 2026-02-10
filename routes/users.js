@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
-const db = require('../config/database');
+const pool = require('../config/database');
 const auth = require('../middleware/auth');
 
 // Get user profile
@@ -17,13 +17,13 @@ router.get('/profile', auth, async (req, res, next) => {
     res.json({
       user: {
         id: user.id,
-        telegramId: user.telegramId,
+        telegramId: user.telegramid,
         username: user.username,
-        firstName: user.firstName,
-        lastName: user.lastName,
+        firstName: user.firstname,
+        lastName: user.lastname,
         email: user.email,
-        referralCode: user.referralCode,
-        createdAt: user.createdAt
+        referralCode: user.referralcode,
+        createdAt: user.createdat
       },
       stats
     });
@@ -36,19 +36,19 @@ router.get('/profile', auth, async (req, res, next) => {
 router.put('/profile', auth, async (req, res, next) => {
   try {
     const { email } = req.body;
-
-    db.run(
-      'UPDATE users SET email = ?, updatedAt = CURRENT_TIMESTAMP WHERE id = ?',
-      [email, req.userId],
-      function(err) {
-        if (err) return next(err);
-        res.json({ success: true, message: 'Profile updated' });
-      }
-    );
+    const client = await pool.connect();
+    try {
+      await client.query(
+        'UPDATE users SET email = $1, updatedAt = CURRENT_TIMESTAMP WHERE id = $2',
+        [email, req.userId]
+      );
+      res.json({ success: true, message: 'Profile updated' });
+    } finally {
+      client.release();
+    }
   } catch (error) {
     next(error);
   }
 });
 
 module.exports = router;
-
