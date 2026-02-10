@@ -84,7 +84,7 @@ const Mining = () => {
     return (
       <div className="mining-page">
         <div className="container">
-          <h1 className="page-title gradient-text">Майнинг</h1>
+          <h1 className="page-title">Майнинг</h1>
           <div className="pools-grid">
             <SkeletonLoader type="pool" count={3} />
           </div>
