@@ -5,10 +5,5 @@ data
 *.db
 *.log
 .DS_Store
-server.js
-routes
-models
-config
-middleware
 scripts
 
