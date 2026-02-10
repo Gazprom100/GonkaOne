@@ -9,6 +9,18 @@
   z-index: var(--z-base);
 }
 
+/* Telegram compact mode */
+@supports (height: var(--tg-viewport-height)) {
+  .home-page {
+    height: var(--tg-content-height);
+    max-height: var(--tg-content-height);
+    padding: var(--space-md) 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
 /* Language Selector - Premium */
 .language-selector {
   display: flex;

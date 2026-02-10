@@ -38,6 +38,23 @@ const TelegramAuth = () => {
       // Set theme colors
       tg.setHeaderColor('#000000');
       tg.setBackgroundColor('#000000');
+      
+      // Set viewport height for Telegram
+      const setViewportHeight = () => {
+        const vh = tg.viewportHeight || window.innerHeight;
+        document.documentElement.style.setProperty('--tg-viewport-height', `${vh}px`);
+        document.documentElement.style.setProperty('--tg-safe-area-inset-top', `${tg.safeAreaInsets?.top || 0}px`);
+        document.documentElement.style.setProperty('--tg-safe-area-inset-bottom', `${tg.safeAreaInsets?.bottom || 0}px`);
+      };
+      
+      setViewportHeight();
+      tg.onEvent('viewportChanged', setViewportHeight);
+      
+      // Disable scroll on body when in Telegram
+      document.body.style.overflow = 'hidden';
+      document.body.style.height = '100vh';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
 
       // Get user data from Telegram
       const initData = tg.initDataUnsafe;

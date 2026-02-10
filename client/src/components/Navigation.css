@@ -14,9 +14,20 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: var(--space-sm) 0 calc(var(--space-sm) + env(safe-area-inset-bottom));
+  padding: var(--space-sm) 0;
   z-index: var(--z-fixed);
   box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.5);
+  height: 60px;
+  max-height: 60px;
+}
+
+/* Telegram safe area support */
+@supports (padding: max(0px)) {
+  .bottom-navigation {
+    padding-bottom: max(var(--space-sm), var(--tg-safe-area-inset-bottom, 0px));
+    height: calc(60px + var(--tg-safe-area-inset-bottom, 0px));
+    max-height: calc(60px + var(--tg-safe-area-inset-bottom, 0px));
+  }
 }
 
 .bottom-navigation::before {

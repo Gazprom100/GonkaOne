@@ -1,0 +1,281 @@
+/* ============================================
+   TELEGRAM WEBAPP ADAPTATION
+   ============================================ */
+
+/* Telegram viewport variables */
+:root {
+  --tg-viewport-height: 100vh;
+  --tg-safe-area-inset-top: 0px;
+  --tg-safe-area-inset-bottom: 0px;
+  --tg-content-height: calc(var(--tg-viewport-height) - 70px - var(--tg-safe-area-inset-bottom, 0px));
+}
+
+/* Compact spacing for Telegram */
+.telegram-compact {
+  --space-xs: 2px;
+  --space-sm: 4px;
+  --space-md: 8px;
+  --space-lg: 12px;
+  --space-xl: 16px;
+  --space-2xl: 24px;
+  --space-3xl: 32px;
+  --space-4xl: 40px;
+}
+
+/* Detect Telegram WebApp */
+@supports (height: var(--tg-viewport-height)) {
+  body {
+    height: var(--tg-viewport-height);
+    max-height: var(--tg-viewport-height);
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+  }
+  
+  html {
+    height: var(--tg-viewport-height);
+    max-height: var(--tg-viewport-height);
+    overflow: hidden;
+  }
+  
+  /* Compact pages */
+  .home-page,
+  .mining-page,
+  .profile-page,
+  .referrals-page,
+  .support-page {
+    height: var(--tg-content-height);
+    max-height: var(--tg-content-height);
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding: var(--space-md) 0;
+  }
+  
+  /* Compact containers */
+  .container {
+    padding: 0 var(--space-md);
+  }
+  
+  /* Compact sections */
+  .section {
+    padding: var(--space-lg) 0;
+  }
+  
+  .section-sm {
+    padding: var(--space-md) 0;
+  }
+  
+  /* Compact hero */
+  .hero-section {
+    padding: var(--space-lg) 0;
+    min-height: auto;
+  }
+  
+  .hero-title {
+    font-size: clamp(24px, 6vw, 48px) !important;
+    margin-bottom: var(--space-md) !important;
+  }
+  
+  .hero-subtitle {
+    font-size: clamp(14px, 2.5vw, 18px) !important;
+    margin-bottom: var(--space-lg) !important;
+  }
+  
+  /* Compact buttons */
+  .btn-lg {
+    padding: var(--space-md) var(--space-lg) !important;
+    font-size: var(--text-sm) !important;
+  }
+  
+  .btn-xl {
+    padding: var(--space-lg) var(--space-xl) !important;
+    font-size: var(--text-base) !important;
+  }
+  
+  /* Compact cards */
+  .card,
+  .neon-card,
+  .card-ultra {
+    padding: var(--space-md) var(--space-lg) !important;
+    margin-bottom: var(--space-md) !important;
+  }
+  
+  /* Compact navigation */
+  .bottom-navigation {
+    height: calc(60px + var(--tg-safe-area-inset-bottom, 0px));
+    padding-bottom: var(--tg-safe-area-inset-bottom, 0px);
+  }
+  
+  /* Hide language selector on mobile Telegram */
+  .language-selector {
+    display: none;
+  }
+  
+  /* Compact page titles */
+  .page-title {
+    font-size: clamp(24px, 5vw, 36px) !important;
+    margin-bottom: var(--space-lg) !important;
+  }
+  
+  .section-title {
+    font-size: clamp(18px, 4vw, 24px) !important;
+    margin-bottom: var(--space-md) !important;
+  }
+  
+  /* Compact steps */
+  .step-item {
+    padding: var(--space-md) var(--space-lg) !important;
+    margin-bottom: var(--space-sm) !important;
+  }
+  
+  .step-number {
+    font-size: clamp(32px, 5vw, 48px) !important;
+    width: 60px !important;
+    height: 60px !important;
+  }
+  
+  .step-text {
+    font-size: var(--text-sm) !important;
+  }
+  
+  /* Compact pools grid */
+  .pools-grid {
+    gap: var(--space-md) !important;
+  }
+  
+  .pool-card {
+    padding: var(--space-md) var(--space-lg) !important;
+  }
+  
+  /* Compact stats */
+  .stats-cards {
+    gap: var(--space-md) !important;
+    margin-bottom: var(--space-lg) !important;
+  }
+  
+  .stat-card {
+    padding: var(--space-md) var(--space-lg) !important;
+  }
+  
+  .stat-value {
+    font-size: clamp(20px, 4vw, 28px) !important;
+  }
+  
+  /* Compact forms */
+  .input-group {
+    gap: var(--space-xs) !important;
+  }
+  
+  .form-group {
+    margin-bottom: var(--space-md) !important;
+  }
+  
+  /* Compact modal */
+  .modal-content {
+    padding: var(--space-lg) var(--space-xl) !important;
+    max-height: calc(var(--tg-viewport-height) - 40px);
+    overflow-y: auto;
+  }
+  
+  /* Remove large margins */
+  .home-page,
+  .mining-page,
+  .profile-page,
+  .referrals-page,
+  .support-page {
+    padding-top: var(--space-md) !important;
+    padding-bottom: var(--space-md) !important;
+  }
+  
+  /* Compact promo banner */
+  .promo-banner {
+    padding: var(--space-lg) var(--space-md) !important;
+  }
+  
+  .promo-title {
+    font-size: clamp(32px, 8vw, 64px) !important;
+    margin-bottom: var(--space-md) !important;
+  }
+  
+  .promo-text {
+    font-size: clamp(12px, 2vw, 16px) !important;
+  }
+  
+  /* Compact about section */
+  .about-section {
+    padding: var(--space-lg) 0 !important;
+  }
+  
+  .about-title {
+    font-size: clamp(20px, 4vw, 32px) !important;
+    margin-bottom: var(--space-md) !important;
+  }
+  
+  .about-description {
+    font-size: var(--text-sm) !important;
+    margin-bottom: var(--space-md) !important;
+  }
+  
+  /* Compact how it works */
+  .how-it-works {
+    padding: var(--space-lg) 0 !important;
+  }
+  
+  .how-it-works-title {
+    font-size: clamp(20px, 4vw, 32px) !important;
+    margin-bottom: var(--space-lg) !important;
+  }
+  
+  /* Compact CTA */
+  .hero-cta {
+    gap: var(--space-md) !important;
+    margin-top: var(--space-md) !important;
+  }
+  
+  .hero-cta .btn {
+    min-width: auto !important;
+    flex: 1;
+  }
+  
+  /* Compact features */
+  .promo-features {
+    gap: var(--space-md) !important;
+    margin-top: var(--space-md) !important;
+  }
+  
+  .feature-item {
+    padding: var(--space-sm) var(--space-md) !important;
+    min-width: auto !important;
+    flex: 1;
+  }
+  
+  .feature-icon {
+    font-size: var(--text-xl) !important;
+  }
+  
+  .feature-text {
+    font-size: var(--text-xs) !important;
+  }
+}
+
+/* Mobile Telegram specific */
+@media (max-width: 480px) {
+  @supports (height: var(--tg-viewport-height)) {
+    .container {
+      padding: 0 var(--space-sm);
+    }
+    
+    .card,
+    .neon-card,
+    .card-ultra {
+      padding: var(--space-sm) var(--space-md) !important;
+    }
+    
+    .btn {
+      padding: var(--space-sm) var(--space-md) !important;
+      font-size: var(--text-xs) !important;
+    }
+  }
+}
+

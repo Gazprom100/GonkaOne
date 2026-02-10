@@ -1,9 +1,29 @@
 .App {
-  min-height: 100vh;
+  height: 100vh;
+  max-height: 100vh;
   background-color: var(--bg-primary);
-  padding-bottom: 80px; /* Space for bottom navigation */
   position: relative;
   z-index: var(--z-base);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Telegram WebApp specific styles */
+@supports (height: var(--tg-viewport-height)) {
+  .App {
+    height: var(--tg-viewport-height, 100vh);
+    max-height: var(--tg-viewport-height, 100vh);
+  }
+}
+
+/* Content area - scrollable */
+.App > *:not(.bottom-navigation) {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: calc(70px + var(--tg-safe-area-inset-bottom, 0px));
 }
 
 /* Premium page transitions */

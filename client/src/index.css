@@ -1,6 +1,7 @@
 /* Import Premium Design System */
 @import './styles/design-system.css';
 @import './styles/components.css';
+@import './styles/telegram-adaptation.css';
 
 /* Additional Global Styles */
 * {
