@@ -1,5 +1,6 @@
 /* Import Premium Design System */
 @import './styles/design-system.css';
+@import './styles/components.css';
 
 /* Additional Global Styles */
 * {

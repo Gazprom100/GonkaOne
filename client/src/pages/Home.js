@@ -1,81 +1,129 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
 
 const Home = () => {
+  const [isVisible, setIsVisible] = useState(false);
 
-  // Telegram WebApp initialization is handled in TelegramAuth component
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
 
   return (
     <div className="home-page">
       <div className="container">
-        {/* Language Selector */}
-        <div className="language-selector">
+        {/* Language Selector - Premium */}
+        <div className={`language-selector ${isVisible ? 'animate-slide-in-up' : ''}`} style={{ animationDelay: '0.1s' }}>
           <button className="lang-btn active">RU</button>
           <button className="lang-btn">EN</button>
           <button className="lang-btn">ZH</button>
           <button className="lang-btn">ES</button>
         </div>
 
-        {/* Hero Section */}
-        <section className="hero-section">
-          <h1 className="hero-title">GONKA ONE</h1>
-          <p className="hero-subtitle">
-            Премиум платформа для коллективного майнинга токенов GNK
-          </p>
-          <div className="hero-cta">
-            <Link to="/mining" className="btn btn-primary btn-lg">
-              Начать майнинг
-            </Link>
-            <Link to="/referrals" className="btn btn-secondary btn-lg">
-              Реферальная программа
-            </Link>
+        {/* Hero Section - Ultra Premium */}
+        <section className={`hero-section ${isVisible ? 'animate-fade-in-scale' : ''}`} style={{ animationDelay: '0.2s' }}>
+          <div className="hero-content">
+            <h1 className="hero-title animate-pulse-glow">
+              GONKA ONE
+            </h1>
+            <p className="hero-subtitle">
+              Премиум платформа для коллективного майнинга токенов GNK
+            </p>
+            <div className="hero-cta">
+              <Link to="/mining" className="btn btn-primary btn-lg animate-float-slow">
+                <span>🚀</span>
+                <span>Начать майнинг</span>
+              </Link>
+              <Link to="/referrals" className="btn btn-secondary btn-lg">
+                <span>💎</span>
+                <span>Реферальная программа</span>
+              </Link>
+            </div>
+          </div>
+          
+          {/* Animated Background Elements */}
+          <div className="hero-bg-elements">
+            <div className="bg-orb bg-orb-1 animate-float-slow"></div>
+            <div className="bg-orb bg-orb-2 animate-float-slow" style={{ animationDelay: '1s' }}></div>
+            <div className="bg-orb bg-orb-3 animate-float-slow" style={{ animationDelay: '2s' }}></div>
           </div>
         </section>
 
-        {/* About Section */}
-        <section className="about-section">
-          <h2 className="about-title">О майнинг-пуле</h2>
-          <p className="about-description">
-            <span className="brand-name">GonkaOne</span> — это коллективный пул по добыче токена GNK проекта Gonka братьев Либерман. 
-            Присоединяйтесь к сообществу и получайте пассивный доход от майнинга.
-          </p>
-          <button className="btn btn-ghost">Подробнее</button>
+        {/* About Section - Premium */}
+        <section className={`about-section ${isVisible ? 'animate-slide-in-up' : ''}`} style={{ animationDelay: '0.4s' }}>
+          <div className="about-content">
+            <h2 className="about-title">О майнинг-пуле</h2>
+            <p className="about-description">
+              <span className="brand-name">GonkaOne</span> — это коллективный пул по добыче токена GNK проекта Gonka братьев Либерман. 
+              Присоединяйтесь к сообществу и получайте пассивный доход от майнинга.
+            </p>
+            <button className="btn btn-ghost btn-lg">
+              <span>📖</span>
+              <span>Подробнее</span>
+            </button>
+          </div>
         </section>
 
-        {/* How it Works */}
-        <section className="how-it-works">
+        {/* How it Works - Premium */}
+        <section className={`how-it-works ${isVisible ? 'animate-slide-in-up' : ''}`} style={{ animationDelay: '0.6s' }}>
           <h2 className="how-it-works-title">Как это работает</h2>
           <ol className="steps-list">
-            <li className="step-item">
-              <span className="step-number">1</span>
+            <li className="step-item card-ultra">
+              <div className="step-number-wrapper">
+                <span className="step-number">1</span>
+              </div>
               <span className="step-text">Выберите пул в разделе Майнинг и инвестируйте в него</span>
             </li>
-            <li className="step-item">
-              <span className="step-number">2</span>
+            <li className="step-item card-ultra">
+              <div className="step-number-wrapper">
+                <span className="step-number">2</span>
+              </div>
               <span className="step-text">Оплатите инвестицию в USDT или USDC</span>
             </li>
-            <li className="step-item">
-              <span className="step-number">3</span>
+            <li className="step-item card-ultra">
+              <div className="step-number-wrapper">
+                <span className="step-number">3</span>
+              </div>
               <span className="step-text">Токен Gonka добывается в течение 30 дней автоматически</span>
             </li>
-            <li className="step-item">
-              <span className="step-number">4</span>
+            <li className="step-item card-ultra">
+              <div className="step-number-wrapper">
+                <span className="step-number">4</span>
+              </div>
               <span className="step-text">Укажите свой кошелек в сети Gonka в разделе Профиль для получения токенов</span>
             </li>
           </ol>
           <div className="cta-primary">
             <Link to="/mining" className="btn btn-primary btn-xl">
-              Перейти в Майнинг
+              <span>⚡</span>
+              <span>Перейти в Майнинг</span>
             </Link>
           </div>
         </section>
 
-        {/* Promo Banner */}
-        <section className="promo-section">
-          <div className="promo-banner">
-            <h2 className="promo-title">GONKA ONE</h2>
-            <p className="promo-text">Децентрализованная платформа для коллективного майнинга с реферальной программой</p>
+        {/* Promo Banner - Ultra Premium */}
+        <section className={`promo-section ${isVisible ? 'animate-fade-in-scale' : ''}`} style={{ animationDelay: '0.8s' }}>
+          <div className="promo-banner card-ultra">
+            <div className="promo-content">
+              <h2 className="promo-title">GONKA ONE</h2>
+              <p className="promo-text">
+                Децентрализованная платформа для коллективного майнинга с реферальной программой
+              </p>
+              <div className="promo-features">
+                <div className="feature-item">
+                  <span className="feature-icon">🔒</span>
+                  <span className="feature-text">Безопасно</span>
+                </div>
+                <div className="feature-item">
+                  <span className="feature-icon">⚡</span>
+                  <span className="feature-text">Быстро</span>
+                </div>
+                <div className="feature-item">
+                  <span className="feature-icon">💎</span>
+                  <span className="feature-text">Надежно</span>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       </div>
@@ -84,4 +132,3 @@ const Home = () => {
 };
 
 export default Home;
-
