@@ -1,159 +1,354 @@
+/* ============================================
+   PREMIUM REFERRALS PAGE - GONKAONE
+   ============================================ */
+
 .referrals-page {
   min-height: 100vh;
-  padding: 20px 0;
+  padding: var(--space-xl) 0 var(--space-4xl);
+  position: relative;
+  z-index: var(--z-base);
 }
 
+/* Program Description - Premium */
 .program-description {
-  margin-bottom: 40px;
-}
-
-.program-description .section-title {
-  font-size: 24px;
-  margin-bottom: 24px;
+  margin-bottom: var(--space-4xl);
   text-align: center;
 }
 
+.program-description .section-title {
+  font-size: clamp(28px, 5vw, 48px);
+  margin-bottom: var(--space-xl);
+  background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-purple) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.program-description-text {
+  font-size: var(--text-lg);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Levels Grid - Premium */
 .levels-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-  margin-bottom: 32px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-lg);
+  margin-bottom: var(--space-2xl);
 }
 
 .level-card {
   text-align: center;
-  padding: 24px;
+  padding: var(--space-xl);
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.level-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.level-card:hover {
+  border-color: var(--border-accent);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg), var(--glow-cyan);
+}
+
+.level-card:hover::before {
+  opacity: 1;
 }
 
 .level-number {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 8px;
-}
-
-.level-percent {
-  font-size: 24px;
+  font-size: var(--text-xl);
   font-weight: 700;
-}
-
-.referral-link-section {
-  margin-bottom: 40px;
-}
-
-.section-subtitle {
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 16px;
+  margin-bottom: var(--space-sm);
   color: var(--text-primary);
-}
-
-.referral-link-card {
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.referral-link-text {
-  background: var(--bg-secondary);
-  padding: 16px;
-  border-radius: 8px;
-  font-family: monospace;
-  font-size: 14px;
-  word-break: break-all;
-  color: var(--text-primary);
-  border: 1px solid var(--bg-card);
-}
-
-.statistics-section {
-  margin-bottom: 60px;
-}
-
-.main-stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 20px;
-  margin-bottom: 24px;
-}
-
-.stat-card {
-  text-align: center;
-  padding: 24px;
-}
-
-.stat-label {
-  font-size: 14px;
-  color: var(--text-secondary);
-  margin-bottom: 12px;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
-.stat-value {
-  font-size: 28px;
-  font-weight: 700;
+.level-percent {
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-purple) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
+/* Referral Link Section - Premium */
+.referral-link-section {
+  margin-bottom: var(--space-4xl);
+}
+
+.section-subtitle {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  margin-bottom: var(--space-lg);
+  color: var(--text-primary);
+}
+
+.referral-link-card {
+  padding: var(--space-xl);
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+.referral-link-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple), var(--neon-pink));
+  box-shadow: var(--glow-multi);
+}
+
+.referral-link-text {
+  background: var(--bg-secondary);
+  padding: var(--space-lg);
+  border-radius: var(--radius-md);
+  font-family: monospace;
+  font-size: var(--text-sm);
+  word-break: break-all;
+  color: var(--text-primary);
+  border: 1px solid var(--border-primary);
+  transition: all var(--transition-base);
+}
+
+.referral-link-text:hover {
+  border-color: var(--neon-cyan);
+  box-shadow: var(--glow-cyan);
+}
+
+.copy-btn {
+  width: 100%;
+  padding: var(--space-md);
+  font-size: var(--text-base);
+  font-weight: 600;
+}
+
+/* Statistics Section - Premium */
+.statistics-section {
+  margin-bottom: var(--space-4xl);
+}
+
+.main-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+.stat-card {
+  text-align: center;
+  padding: var(--space-xl);
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.stat-card:hover {
+  border-color: var(--border-accent);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg), var(--glow-cyan);
+}
+
+.stat-card:hover::before {
+  opacity: 1;
+}
+
+.stat-label {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-md);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+.stat-value {
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-purple) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Referral Count Card - Premium */
 .referral-count-card {
   text-align: center;
-  padding: 32px;
-  margin-bottom: 24px;
+  padding: var(--space-2xl);
+  margin-bottom: var(--space-xl);
+  background: var(--bg-card);
+  border: 2px solid var(--border-accent);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg), var(--glow-cyan);
+  position: relative;
+  overflow: hidden;
+}
+
+.referral-count-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 240, 255, 0.1) 0%,
+    rgba(184, 0, 255, 0.1) 100%
+  );
 }
 
 .count-label {
-  font-size: 18px;
+  font-size: var(--text-lg);
   color: var(--text-secondary);
-  margin-bottom: 12px;
+  margin-bottom: var(--space-md);
+  font-weight: 600;
+  position: relative;
+  z-index: 1;
 }
 
 .count-value {
-  font-size: 48px;
-  font-weight: 700;
+  font-size: clamp(48px, 8vw, 80px);
+  font-weight: 900;
+  background: linear-gradient(
+    135deg,
+    var(--neon-cyan) 0%,
+    var(--neon-purple) 30%,
+    var(--neon-pink) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 0 40px rgba(0, 240, 255, 0.3);
 }
 
+/* Total Income Card - Premium */
 .total-income-card {
   text-align: center;
-  padding: 32px;
-  margin-bottom: 32px;
+  padding: var(--space-2xl);
+  margin-bottom: var(--space-2xl);
+  background: var(--bg-card);
+  border: 2px solid var(--border-accent);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg), var(--glow-purple);
+  position: relative;
+  overflow: hidden;
+}
+
+.total-income-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(184, 0, 255, 0.1) 0%,
+    rgba(255, 0, 208, 0.1) 100%
+  );
 }
 
 .income-label {
-  font-size: 18px;
+  font-size: var(--text-lg);
   color: var(--text-secondary);
-  margin-bottom: 12px;
+  margin-bottom: var(--space-md);
+  font-weight: 600;
+  position: relative;
+  z-index: 1;
 }
 
 .income-value {
-  font-size: 36px;
-  font-weight: 700;
+  font-size: clamp(36px, 6vw, 64px);
+  font-weight: 900;
+  background: linear-gradient(
+    135deg,
+    var(--neon-purple) 0%,
+    var(--neon-pink) 50%,
+    var(--neon-cyan) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 0 40px rgba(184, 0, 255, 0.3);
 }
 
+/* Levels Income - Premium */
 .levels-income {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--space-lg);
 }
 
 .level-income-card {
-  padding: 24px;
+  padding: var(--space-xl);
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-base);
+}
+
+.level-income-card:hover {
+  border-color: var(--border-accent);
+  box-shadow: var(--shadow-md), var(--glow-cyan);
 }
 
 .level-income-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
+  align-items: flex-start;
+  margin-bottom: var(--space-md);
 }
 
 .level-income-title {
-  font-size: 20px;
-  font-weight: 600;
+  font-size: var(--text-xl);
+  font-weight: 700;
   color: var(--text-primary);
-  margin-bottom: 4px;
+  margin-bottom: var(--space-xs);
 }
 
 .level-income-count {
-  font-size: 14px;
+  font-size: var(--text-sm);
   color: var(--text-secondary);
 }
 
@@ -161,75 +356,95 @@
   background: transparent;
   border: 2px solid var(--neon-cyan);
   color: var(--neon-cyan);
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  font-size: 20px;
+  font-size: var(--text-xl);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all var(--transition-base);
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .level-details-btn:hover {
   box-shadow: var(--glow-cyan);
-  transform: scale(1.1);
+  transform: scale(1.1) rotate(90deg);
+  background: rgba(0, 240, 255, 0.1);
 }
 
 .level-income-amount {
-  font-size: 16px;
+  font-size: var(--text-lg);
   color: var(--text-secondary);
+  font-weight: 600;
 }
 
 .level-details-list {
   max-height: 400px;
   overflow-y: auto;
-  margin-bottom: 20px;
+  margin-bottom: var(--space-lg);
+  padding-right: var(--space-sm);
 }
 
 .detail-item-card {
-  padding: 16px;
-  margin-bottom: 12px;
+  padding: var(--space-md);
+  margin-bottom: var(--space-sm);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-base);
+}
+
+.detail-item-card:hover {
+  border-color: var(--border-accent);
+  transform: translateX(4px);
 }
 
 .detail-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: var(--space-sm);
 }
 
 .detail-name {
-  font-size: 16px;
+  font-size: var(--text-base);
   font-weight: 600;
   color: var(--text-primary);
 }
 
 .detail-date {
-  font-size: 12px;
+  font-size: var(--text-xs);
   color: var(--text-muted);
 }
 
 .detail-stats {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--space-xs);
 }
 
 .detail-stat {
   display: flex;
   justify-content: space-between;
-  font-size: 14px;
+  font-size: var(--text-sm);
   color: var(--text-secondary);
+}
+
+.detail-stat-value {
+  font-weight: 700;
+  color: var(--text-primary);
 }
 
 .empty-details {
   text-align: center;
-  padding: 40px;
+  padding: var(--space-3xl);
   color: var(--text-muted);
+  font-size: var(--text-lg);
 }
 
+/* Responsive Design */
 @media (max-width: 768px) {
   .levels-grid {
     grid-template-columns: 1fr;
@@ -240,11 +455,31 @@
   }
   
   .count-value {
-    font-size: 36px;
+    font-size: 48px;
   }
   
   .income-value {
-    font-size: 28px;
+    font-size: 36px;
+  }
+  
+  .level-income-header {
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+  
+  .level-details-btn {
+    align-self: flex-end;
   }
 }
 
+@media (max-width: 480px) {
+  .referral-link-card,
+  .level-income-card {
+    padding: var(--space-lg);
+  }
+  
+  .referral-count-card,
+  .total-income-card {
+    padding: var(--space-xl);
+  }
+}
