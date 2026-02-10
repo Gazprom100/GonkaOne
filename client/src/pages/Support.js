@@ -52,7 +52,7 @@ const Support = () => {
   return (
     <div className="support-page">
       <div className="container">
-        <h1 className="page-title gradient-text">Поддержка</h1>
+        <h1 className="page-title">Поддержка</h1>
 
         {/* FAQ Section */}
         <section className="faq-section">
@@ -71,7 +71,7 @@ const Support = () => {
                   <div className="category-content">
                     {category.questions.map((item, index) => (
                       <div key={index} className="faq-item">
-                        <div className="faq-question neon-text">{item.q}</div>
+                        <div className="faq-question">{item.q}</div>
                         <div className="faq-answer">{item.a}</div>
                       </div>
                     ))}
@@ -86,26 +86,24 @@ const Support = () => {
         <section className="contact-section">
           <h2 className="section-title">Свяжитесь с нами</h2>
           <div className="contact-cards">
-            <div className="contact-card neon-card glow-cyan">
-              <div className="contact-icon">💬</div>
+            <div className="contact-card">
               <div className="contact-title">Telegram</div>
               <div className="contact-info">@gonkaone_support</div>
               <a
                 href="https://t.me/gonkaone_support"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="neon-button"
+                className="btn btn-primary"
               >
                 Написать
               </a>
             </div>
-            <div className="contact-card neon-card glow-purple">
-              <div className="contact-icon">📧</div>
+            <div className="contact-card">
               <div className="contact-title">Email</div>
               <div className="contact-info">support@gonkaone.com</div>
               <a
                 href="mailto:support@gonkaone.com"
-                className="neon-button"
+                className="btn btn-primary"
               >
                 Написать
               </a>
@@ -116,7 +114,7 @@ const Support = () => {
         {/* Feedback Form */}
         <section className="feedback-section">
           <h2 className="section-title">Обратная связь</h2>
-          <div className="feedback-form neon-card">
+          <div className="feedback-form card">
             <div className="form-group">
               <label className="form-label">Тема обращения</label>
               <select className="neon-input">
@@ -135,7 +133,7 @@ const Support = () => {
                 placeholder="Опишите вашу проблему или вопрос..."
               ></textarea>
             </div>
-            <button className="neon-button primary" style={{ width: '100%' }}>
+            <button className="btn btn-primary" style={{ width: '100%' }}>
               Отправить
             </button>
           </div>

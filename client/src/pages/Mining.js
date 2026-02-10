@@ -107,7 +107,7 @@ const Mining = () => {
               return (
                 <div key={pool.id} className="pool-card card-ultra">
                   <div className="pool-header">
-                    <h3 className="pool-name neon-text">GonkaOne Pool #{pool.poolNumber}</h3>
+                    <h3 className="pool-name">GonkaOne Pool #{pool.poolNumber}</h3>
                     <div className="pool-hardware">
                       <span>{pool.hardware || '8xH100'}</span>
                     </div>
@@ -116,7 +116,7 @@ const Mining = () => {
                   <div className="pool-progress">
                     <div className="progress-info">
                       <span>{pool.currentAmount.toLocaleString()} USDT</span>
-                      <span className="neon-text">/ {pool.targetAmount.toLocaleString()} USDT</span>
+                      <span>/ {pool.targetAmount.toLocaleString()} USDT</span>
                     </div>
                     <div className="progress-container">
                       <div
@@ -124,7 +124,7 @@ const Mining = () => {
                         style={{ width: `${progress}%` }}
                       ></div>
                     </div>
-                    <div className="progress-percentage neon-text-green">
+                    <div className="progress-percentage">
                       {progress.toFixed(2)}%
                     </div>
                   </div>
@@ -172,7 +172,7 @@ const Mining = () => {
                       </button>
                     </div>
                     <button
-                      className="neon-button primary invest-btn"
+                      className="btn btn-primary invest-btn"
                       onClick={() => handleInvest(pool)}
                     >
                       Инвестировать
@@ -187,7 +187,7 @@ const Mining = () => {
         {/* My Pools */}
         {isAuthenticated && (
           <section className="my-pools-section">
-            <h2 className="section-title neon-text">Мои пулы</h2>
+            <h2 className="section-title">Мои пулы</h2>
             <div className="stats-cards">
               <div className="stat-card">
                 <div className="stat-label">Всего инвестировано</div>
@@ -206,7 +206,7 @@ const Mining = () => {
             ) : (
               <div className="investments-list">
                 {myInvestments.map((investment) => (
-                  <div key={investment.id} className="investment-card neon-card">
+                  <div key={investment.id} className="investment-card card">
                     <div className="investment-header">
                       <span className="investment-pool">{investment.poolName}</span>
                       <span className={`investment-status status-${investment.status}`}>
@@ -244,14 +244,14 @@ const Mining = () => {
               <div className="modal-body">
                 <p>Сумма инвестиции: <strong>{investmentAmount} USDT</strong></p>
                 <div className="modal-actions">
-                  <button
-                    className="neon-button"
-                    onClick={() => setShowInvestModal(false)}
-                  >
+                    <button
+                      className="btn btn-secondary"
+                      onClick={() => setShowInvestModal(false)}
+                    >
                     Отмена
                   </button>
                   <button
-                    className="neon-button primary"
+                    className="btn btn-primary"
                     onClick={handleInvestmentSubmit}
                   >
                     Подтвердить

@@ -273,6 +273,27 @@
   padding: var(--space-sm) !important;
 }
 
+/* Minimalist contact cards */
+.contact-card {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-primary) !important;
+}
+
+.contact-icon {
+  display: none !important;
+}
+
+.contact-title {
+  font-size: var(--text-lg) !important;
+  font-weight: 700 !important;
+  margin-bottom: var(--space-sm) !important;
+}
+
+.contact-info {
+  color: var(--text-secondary) !important;
+  margin-bottom: var(--space-md) !important;
+}
+
 /* Minimalist level cards */
 .level-card {
   background: var(--bg-card) !important;

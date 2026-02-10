@@ -105,9 +105,9 @@ const Referrals = () => {
         {/* Referral Link */}
         <section className="referral-link-section">
           <h3 className="section-subtitle">Ваша реферальная ссылка</h3>
-          <div className="referral-link-card neon-card">
+          <div className="referral-link-card card">
             <div className="referral-link-text">{stats.referralLink}</div>
-            <button className="neon-button primary" onClick={copyReferralLink}>
+            <button className="btn btn-primary" onClick={copyReferralLink}>
               Скопировать
             </button>
           </div>
@@ -180,14 +180,14 @@ const Referrals = () => {
         {/* Level Details Modal */}
         {selectedLevel && levelDetails[selectedLevel] && (
           <div className="modal-overlay" onClick={() => setSelectedLevel(null)}>
-            <div className="modal-content neon-card" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-content card" onClick={(e) => e.stopPropagation()}>
               <h3 className="modal-title">Уровень {selectedLevel} - Детали</h3>
               <div className="level-details-list">
                 {levelDetails[selectedLevel].length === 0 ? (
                   <div className="empty-details">Нет рефералов на этом уровне</div>
                 ) : (
                   levelDetails[selectedLevel].map((ref) => (
-                    <div key={ref.id} className="detail-item-card neon-card">
+                    <div key={ref.id} className="detail-item-card card">
                       <div className="detail-header">
                         <span className="detail-name">{ref.firstName || ref.username || `User ${ref.id}`}</span>
                         <span className="detail-date">
@@ -209,7 +209,7 @@ const Referrals = () => {
                 )}
               </div>
               <button
-                className="neon-button"
+                className="btn btn-secondary"
                 onClick={() => setSelectedLevel(null)}
                 style={{ marginTop: '20px', width: '100%' }}
               >

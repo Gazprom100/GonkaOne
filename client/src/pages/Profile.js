@@ -148,7 +148,7 @@ const Profile = () => {
                 value={wallet.gonkaAddress}
                 onChange={(e) => setWallet({ ...wallet, gonkaAddress: e.target.value })}
               />
-              <button className="neon-button" onClick={saveGonkaWallet}>
+              <button className="btn btn-primary" onClick={saveGonkaWallet}>
                 Сохранить
               </button>
             </div>
@@ -165,7 +165,7 @@ const Profile = () => {
                 value={wallet.bep20Address}
                 onChange={(e) => setWallet({ ...wallet, bep20Address: e.target.value })}
               />
-              <button className="neon-button" onClick={saveBEP20Wallet}>
+              <button className="btn btn-primary" onClick={saveBEP20Wallet}>
                 Сохранить
               </button>
             </div>
@@ -218,7 +218,7 @@ const Profile = () => {
               Запрос будет обработан в течение 48 часов.
             </p>
             <button
-              className="neon-button primary"
+              className="btn btn-primary"
               onClick={requestWithdrawal}
               disabled={withdrawalAmount < 50 || !withdrawalAddress}
             >
