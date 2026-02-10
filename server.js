@@ -19,6 +19,7 @@ app.use('/api/pools', require('./routes/pools'));
 app.use('/api/referrals', require('./routes/referrals'));
 app.use('/api/wallets', require('./routes/wallets'));
 app.use('/api/withdrawals', require('./routes/withdrawals'));
+app.use('/api/telegram', require('./routes/telegram'));
 
 // Serve static files from React app in production
 if (process.env.NODE_ENV === 'production') {
